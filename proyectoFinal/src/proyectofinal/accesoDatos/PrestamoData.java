@@ -9,5 +9,7 @@ package proyectofinal.accesoDatos;
  * @author Usuario
  */
 public class PrestamoData {
-    
+
+    public PrestamoData(){}
+
 }
