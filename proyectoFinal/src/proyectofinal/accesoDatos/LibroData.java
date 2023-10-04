@@ -29,7 +29,7 @@ private Connection con = null;
     public void guardarLibro(Libro libro) {
 
         String sql = "INSERT INTO `libro`(`isbn`, `titulo`, `autor`, `año`, `tipo`, `editorial`, `estado`) "
-                + "VALUES ("+libro.getIsbn()+",'"+libro.getTipo()+"','autor1',"+libro.getAnio()+" ,'"+libro.getTipo()+"','"+libro.getEditorial()+"', 1)";
+                + "VALUES ("+libro.getIsbn()+",'"+libro.getTitulo()+"','autor1',"+libro.getAnio()+" ,'"+libro.getTipo()+"','"+libro.getEditorial()+"', 1)";
 
        
         try {

@@ -88,5 +88,10 @@ public class Libro {
         this.autor = autor;
     }
 
+    @Override
+    public String toString() {
+        return "Libro{" + "isbn=" + isbn + ", titulo=" + titulo + ", anio=" + anio + ", tipo=" + tipo + ", editorial=" + editorial + ", estado=" + estado + ", autor=" + autor + '}';
+    }
+
    
 }
