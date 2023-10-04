@@ -17,7 +17,7 @@ import proyectofinal.Entidades.*;
 public class LibroData {
     private Connection con = null;
     public LibroData(){
-    con = Conexion.getConexion();
+  //  con = Conexion.getConexion();
     }
     
     public void guardarLibro(Libro libro) {
