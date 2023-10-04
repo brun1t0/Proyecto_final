@@ -7,7 +7,7 @@ public class Prestamo {
     
     private Date fechaInicio;
     private Date fechaFin;
-    private Ejemplar ejemplar;
+    private Libro ejemplar;
     private Lector lector;
     private boolean estado;
     
@@ -15,7 +15,7 @@ public class Prestamo {
     
     public Prestamo(){}
 
-    public Prestamo(Date fechaInicio, Date fechaFin, Ejemplar ejemplar, Lector lector, boolean estado) {
+    public Prestamo(Date fechaInicio, Date fechaFin, Libro ejemplar, Lector lector, boolean estado) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.ejemplar = ejemplar;
@@ -41,11 +41,11 @@ public class Prestamo {
         this.fechaFin = fechaFin;
     }
 
-    public Ejemplar getEjemplar() {
+    public Libro getEjemplar() {
         return ejemplar;
     }
 
-    public void setEjemplar(Ejemplar ejemplar) {
+    public void setEjemplar(Libro ejemplar) {
         this.ejemplar = ejemplar;
     }
 
