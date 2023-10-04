@@ -4,20 +4,26 @@
  */
 package proyectofinal.accesoDatos;
 
+
+
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import proyectofinal.Entidades.*;
 
+
 /**
  *
  * @author Usuario
  */
 public class LibroData {
-    private Connection con = null;
-    public LibroData(){
-  //  con = Conexion.getConexion();
+private Connection con = null;	
+	
+ public LibroData(){
+	
+    con = Conexion.getConexion(); 
+	
     }
     
     public void guardarLibro(Libro libro) {
@@ -74,4 +80,5 @@ public class LibroData {
     }
     
 }
+
 

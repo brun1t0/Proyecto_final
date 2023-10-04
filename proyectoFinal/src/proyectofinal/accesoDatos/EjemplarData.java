@@ -8,8 +8,6 @@ package proyectofinal.accesoDatos;
  *
  * @author Usuario
  */
-public class PrestamoData {
-
-    public PrestamoData(){}
-
+public class EjemplarData {
+   public  EjemplarData(){}
 }
