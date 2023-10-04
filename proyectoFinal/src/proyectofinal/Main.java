@@ -16,10 +16,10 @@ public class Main {
     public static void main(String[] args) {
        LibroData ld = new LibroData();
        
-       Libro libro = new Libro (123456789, "Campo de Fresas", 2005, "Drama", "Billiken", true);
+       Libro libro = new Libro(123456, "Campo de Fresas", 2005, "Drama", "Billiken", true);
        ld.guardarLibro(libro);
        
-       ld.buscarLibroPorISBN(123456789);
+       ld.buscarLibroPorISBN(123456);
     }
     
 }
