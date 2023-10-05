@@ -3,16 +3,15 @@ package proyectofinal.Entidades;
 public class Autor {
     int id;
     String nombre;
-    String apellido;
     String nacionalidad;
 
     public Autor() {
     }
 
-    public Autor(int id, String nombre, String apellido, String nacionalidad) {
+    public Autor(int id, String nombre, String nacionalidad) {
         this.id = id;
         this.nombre = nombre;
-        this.apellido = apellido;
+        
         this.nacionalidad = nacionalidad;
     }
 
@@ -32,13 +31,6 @@ public class Autor {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
 
     public String getNacionalidad() {
         return nacionalidad;
@@ -47,5 +39,12 @@ public class Autor {
     public void setNacionalidad(String nacionalidad) {
         this.nacionalidad = nacionalidad;
     }
+
+    @Override
+    public String toString() {
+        return "Autor{" + "id=" + id + ", nombre=" + nombre + ", nacionalidad=" + nacionalidad + '}';
+    }
+    
+    
     
 }
