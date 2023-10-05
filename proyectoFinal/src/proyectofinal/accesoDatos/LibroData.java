@@ -29,16 +29,16 @@ private Connection con = null;
     public void guardarLibro(Libro libro) {
 
         String sql = "INSERT INTO `libro`(`isbn`, `titulo`, `autor`, `año`, `tipo`, `editorial`, `estado`) "
-                + "VALUES (" + libro.getIsbn() + ",'" + libro.getTitulo() + "' ,'autor1' ," + libro.getAnio() + ",'" + libro.getTipo() + "','" + libro.getEditorial() + "'," + libro.isEstado() + ")";
+                + "VALUES ("+libro.getIsbn()+",'"+libro.getTitulo()+"','autor1',"+libro.getAnio()+" ,'"+libro.getTipo()+"','"+libro.getEditorial()+"', 1)";
 
-        PreparedStatement ps;
+       
         try {
-
-            ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             
-            int rs = ps.executeUpdate();
             
-            if (rs == 1) {
+            int fila = ps.executeUpdate();
+            
+            if (fila > 0) {
                 
                 System.out.println("Se ha guardado el libro con éxito, ISBN:" + libro.getIsbn());
             }

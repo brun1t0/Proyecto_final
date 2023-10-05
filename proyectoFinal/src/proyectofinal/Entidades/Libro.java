@@ -1,13 +1,13 @@
 package proyectofinal.Entidades;
 
 public class Libro {
-     int isbn;
-    String titulo;
-    int anio;
-    String tipo;
-    String editorial;
-    boolean estado;    
-    Autor autor;
+    private int isbn;
+    private String titulo;
+    private int anio;
+    private String tipo;
+    private String editorial;
+    private boolean estado;    
+    private Autor autor;
 
     public Libro() {
     }
@@ -87,6 +87,11 @@ public class Libro {
     public void setAutor(Autor autor) {
         this.autor = autor;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Libro{" + "isbn=" + isbn + ", titulo=" + titulo + ", anio=" + anio + ", tipo=" + tipo + ", editorial=" + editorial + ", estado=" + estado + ", autor=" + autor + '}';
+    }
+
+   
 }
