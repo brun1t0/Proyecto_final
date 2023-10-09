@@ -1,7 +1,7 @@
 package proyectofinal.Entidades;
 
 public class Libro {
-    private int isbn;
+    private long isbn;
     private String titulo;
     private int anio;
     private String tipo;
@@ -12,7 +12,7 @@ public class Libro {
     public Libro() {
     }
 
-    public Libro(int isbn, String titulo, int anio, String tipo, String editorial, boolean estado, String autor) {
+    public Libro(long isbn, String titulo, int anio, String tipo, String editorial, boolean estado, String autor) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.anio = anio;
@@ -22,7 +22,7 @@ public class Libro {
         this.autor = autor;
     }
     
-    public Libro(int isbn, String titulo, int anio, String tipo, String editorial, boolean estado) {
+    public Libro(long isbn, String titulo, int anio, String tipo, String editorial, boolean estado) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.anio = anio;
@@ -32,11 +32,11 @@ public class Libro {
 
     }
 
-    public int getIsbn() {
+    public long getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(long isbn) {
         this.isbn = isbn;
     }
 

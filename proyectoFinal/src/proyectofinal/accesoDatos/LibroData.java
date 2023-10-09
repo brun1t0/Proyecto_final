@@ -31,7 +31,7 @@ private AutorData autordata = new AutorData();
     public void guardarLibro(Libro libro) {
 
         String sql = "INSERT INTO `libro`(`isbn`, `titulo`, autor, `año`, `tipo`, `editorial`, `estado`) "
-                + "VALUES ("+libro.getIsbn()+",'"+libro.getTitulo()+"',"+libro.getAutor() +","+libro.getAnio()+" ,'"+libro.getTipo()+"','"+libro.getEditorial()+"', 1)";
+                + "VALUES ("+libro.getIsbn()+",'"+libro.getTitulo()+"','"+libro.getAutor() +"',"+libro.getAnio()+" ,'"+libro.getTipo()+"','"+libro.getEditorial()+"', "+libro.isEstado()+")";
 
        
         try {
@@ -53,7 +53,7 @@ private AutorData autordata = new AutorData();
     }
     
     
-    public Libro buscarLibroPorISBN(int isbn){
+    public Libro buscarLibroPorISBN(long isbn){
     String sql = "SELECT * FROM libro WHERE isbn = "+isbn+" AND estado = 1";
     
         try {
@@ -102,7 +102,7 @@ private AutorData autordata = new AutorData();
         
         
         
-        Libro libro = new Libro(rs.getInt(1), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(2));
+        Libro libro = new Libro(rs.getLong(1), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(2));
         listaLibros.add(libro);
         }
         ps.close();
@@ -116,6 +116,70 @@ private AutorData autordata = new AutorData();
     
     return null;
     }
+    
+    public ArrayList<Libro> listarLibros(){
+         ArrayList<Libro> listaLibros = new ArrayList<>();
+        
+    String sql= "SELECT * FROM `libro` WHERE estado = 1";
+    
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        
+        while (rs.next()){
+         Libro libro = new Libro(rs.getLong(1), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(2));
+        listaLibros.add(libro);
+        
+        }
+        ps.close();
+        return listaLibros;
+        
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al buscar libro " + ex.getMessage());
+    }
+    return null;
+    }
+    
+    public void modificarLibro(Libro libro){
+    
+    String sql = "UPDATE `libro` SET `autor`='"+libro.getAutor()+"',`titulo`='"+libro.getTitulo()+"',`año`= "+libro.getAnio()+",`tipo`='"+libro.getTipo()+"',`editorial`='"+libro.getEditorial()+"',`estado`= "+libro.isEstado()+" WHERE isbn = " + libro.getIsbn();
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        int verificar = ps.executeUpdate();
+        
+        if (verificar > 0){
+            System.out.println("El libro se ha actualizado correctamente." + libro.getIsbn());
+        
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar libro " + ex.getMessage());
+        }
+
+    }
+
+
+    public ArrayList<Libro> buscarLibrosPorAutor(String autor){
+         ArrayList<Libro> listaLibros = new ArrayList<>();
+        String sql = "SELECT * FROM `libro` WHERE autor LIKE '%"+autor+"%' AND estado = 1";
+        
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        
+        while (rs.next()){
+        Libro libro = new Libro(rs.getLong(1), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(2));
+        listaLibros.add(libro);
+        
+        }
+        ps.close();
+        return listaLibros;
+        
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al buscar libro " + ex.getMessage());
+    }
+    return null;
+
+}
     
 }
 
