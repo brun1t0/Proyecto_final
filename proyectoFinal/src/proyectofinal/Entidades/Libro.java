@@ -7,12 +7,12 @@ public class Libro {
     private String tipo;
     private String editorial;
     private boolean estado;    
-    private Autor autor;
+    private String autor;
 
     public Libro() {
     }
 
-    public Libro(int isbn, String titulo, int anio, String tipo, String editorial, boolean estado, Autor autor) {
+    public Libro(int isbn, String titulo, int anio, String tipo, String editorial, boolean estado, String autor) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.anio = anio;
@@ -80,11 +80,11 @@ public class Libro {
         this.estado = estado;
     }
 
-    public Autor getAutor() {
+    public String getAutor() {
         return autor;
     }
 
-    public void setAutor(Autor autor) {
+    public void setAutor(String autor) {
         this.autor = autor;
     }
 
