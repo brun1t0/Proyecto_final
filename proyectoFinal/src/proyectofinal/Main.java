@@ -1,9 +1,9 @@
 
 package proyectofinal;
 
-import proyectofinal.Entidades.Autor;
-import proyectofinal.Entidades.Libro;
-import proyectofinal.accesoDatos.LibroData;
+
+import proyectofinal.Entidades.*;
+import proyectofinal.accesoDatos.*;
 
 /**
  *

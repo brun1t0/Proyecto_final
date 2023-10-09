@@ -21,17 +21,17 @@ import proyectofinal.Entidades.*;
  */
 public class LibroData {
 private Connection con = null;	
-	
+private AutorData autordata = new AutorData();
  public LibroData(){
 	
     con = Conexion.getConexion(); 
 	
     }
     
-    public void guardarLibro(Libro libro, int idAutor) {
+    public void guardarLibro(Libro libro) {
 
-        String sql = "INSERT INTO `libro`(`isbn`, `titulo`, `idAutor`, `año`, `tipo`, `editorial`, `estado`) "
-                + "VALUES ("+libro.getIsbn()+",'"+libro.getTitulo()+"',"+idAutor +","+libro.getAnio()+" ,'"+libro.getTipo()+"','"+libro.getEditorial()+"', 1)";
+        String sql = "INSERT INTO `libro`(`isbn`, `titulo`, autor, `año`, `tipo`, `editorial`, `estado`) "
+                + "VALUES ("+libro.getIsbn()+",'"+libro.getTitulo()+"',"+libro.getAutor() +","+libro.getAnio()+" ,'"+libro.getTipo()+"','"+libro.getEditorial()+"', 1)";
 
        
         try {
@@ -54,7 +54,7 @@ private Connection con = null;
     
     
     public Libro buscarLibroPorISBN(int isbn){
-    String sql = "SELECT * FROM libro JOIN autor ON (libro.idAutor = autor.idAutor) WHERE isbn = "+isbn+" AND estado = 1";
+    String sql = "SELECT * FROM libro WHERE isbn = "+isbn+" AND estado = 1";
     
         try {
             
@@ -67,15 +67,15 @@ private Connection con = null;
         
             if (rs.next()) {
                 
-            Autor autor = new Autor(rs.getInt(2), rs.getString(8), rs.getString(9));   
+           
                 
-            libro.setIsbn(isbn);
-            libro.setTitulo(rs.getString(2));
-            libro.setAutor(autor);
-            libro.setAnio(rs.getInt(4));
-            libro.setTipo(rs.getString(5));
-            libro.setEditorial(rs.getString(6));
-            libro.setEstado(rs.getBoolean(7));
+                libro.setIsbn(isbn);
+                libro.setTitulo(rs.getString(3));
+                libro.setAutor(rs.getString(2));
+                libro.setAnio(rs.getInt(4));
+                libro.setTipo(rs.getString(5));
+                libro.setEditorial(rs.getString(6));
+                libro.setEstado(rs.getBoolean(7));
                 System.out.println("El libro se ha encontrado con éxito.");
                 return libro;
             }
@@ -91,7 +91,7 @@ private Connection con = null;
     public ArrayList<Libro> buscarLibrosPorTitulo(String titulo){
     ArrayList<Libro> listaLibros = new ArrayList<>();
         
-    String sql = "SELECT * FROM `libro` JOIN autor ON (libro.idAutor = autor.idAutor) WHERE titulo LIKE '%"+titulo+"%' AND estado = 1";
+    String sql = "SELECT * FROM `libro` WHERE titulo LIKE '%"+titulo+"%' AND estado = 1";
     
     try {
         PreparedStatement ps = con.prepareStatement(sql);
@@ -99,8 +99,10 @@ private Connection con = null;
         ResultSet rs = ps.executeQuery();
         
         while(rs.next()){
-        Autor autor = new Autor(rs.getInt(8), rs.getString(9), rs.getString(10));
-        Libro libro = new Libro(rs.getInt(1), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), autor);
+        
+        
+        
+        Libro libro = new Libro(rs.getInt(1), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(2));
         listaLibros.add(libro);
         }
         ps.close();
