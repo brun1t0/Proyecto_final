@@ -18,7 +18,7 @@ public class Main {
     LibroData ld = new LibroData();
     Libro Coraline = new Libro(2221232, "Coralifdsfdsfne: La puerta secreta", 2009, "Fantasía","Bloomsburry" , true, "Neil Gaiman");
 //        
-//   ld.guardarLibro(Coraline);
+   ld.guardarLibro(Coraline);
 ////        System.out.println("");
 ////        System.out.println("");
 ////        System.out.println("");
@@ -54,10 +54,10 @@ public class Main {
         System.out.println("");
         System.out.println("");
         System.out.println("");
-        for (Libro libro : ld.buscarLibrosPorEditorial("bloomsburry")) {
-            System.out.println(libro.toString());
-        }
-        
+//        for (Libro libro : ld.buscarLibrosPorEditorial("bloomsburry")) {
+//            System.out.println(libro.toString());
+//        }
+        ld.eliminarLibro(2221232);
         
     }
 
