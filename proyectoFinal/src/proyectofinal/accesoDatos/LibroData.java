@@ -181,6 +181,74 @@ private AutorData autordata = new AutorData();
 
 }
     
+    public ArrayList<Libro> buscarLibrosPorAnio(int anio){
+    ArrayList<Libro> listaLibros = new ArrayList<>();
+    
+    String sql = "SELECT * FROM `libro` WHERE año =" +  anio + " AND estado = true";
+        
+    try {
+       PreparedStatement ps = con.prepareStatement(sql);
+       ResultSet rs = ps.executeQuery();
+       
+       while(rs.next()){
+       Libro libro = new Libro(rs.getLong(1), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(2));
+       listaLibros.add(libro);
+       }
+       
+       return listaLibros;
+    } catch (SQLException ex) {
+     JOptionPane.showMessageDialog(null, "Error al buscar libro " + ex.getMessage());
+     
+    }
+   
+    
+    return null;
+    }
+    
+    public ArrayList<Libro> buscarLibrosPorTipo(String tipo){
+        ArrayList<Libro> listaLibros = new ArrayList<>();
+        String sql = "SELECT * FROM `libro` WHERE tipo LIKE '%" + tipo + "%' AND estado = 1";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Libro libro = new Libro(rs.getLong(1), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(2));
+                listaLibros.add(libro);
+            }
+
+            return listaLibros;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar libro " + ex.getMessage());
+
+        }
+
+        return null;
+    }
+    
+    public ArrayList<Libro> buscarLibrosPorEditorial(String editorial){
+     ArrayList<Libro> listaLibros = new ArrayList<>();
+        String sql = "SELECT * FROM `libro` WHERE editorial LIKE '%" + editorial + "%' AND estado = 1";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Libro libro = new Libro(rs.getLong(1), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(2));
+                listaLibros.add(libro);
+            }
+
+            return listaLibros;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar libro " + ex.getMessage());
+
+        }
+        
+    return null;
+    }
+    
 }
 
 
