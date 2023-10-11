@@ -11,13 +11,13 @@ package proyectofinal.Entidades;
 public class Lector {
     private int nroSocio;
     private String nombre;
-    private Object domicilio;
+    private String domicilio;
     private String mail;
     private boolean estado;
     
     public Lector(){}
     
-    public Lector(int numSocio, String nombreSocio, Object domicilioSocio, String mailSocio, boolean estadoSocio){
+    public Lector(int numSocio, String nombreSocio, String domicilioSocio, String mailSocio, boolean estadoSocio){
     nroSocio = numSocio;
     nombre = nombreSocio;
     domicilio = domicilioSocio;
@@ -25,7 +25,7 @@ public class Lector {
     estado = estadoSocio;
     }
     
-    public Lector(String nombreSocio, Object domicilioSocio, String mailSocio, boolean estadoSocio){
+    public Lector(String nombreSocio, String domicilioSocio, String mailSocio, boolean estadoSocio){
     nombre = nombreSocio;
     domicilio = domicilioSocio;
     mail = mailSocio;
@@ -48,11 +48,11 @@ public class Lector {
         this.nombre = nombre;
     }
 
-    public Object getDomicilio() {
+    public String getDomicilio() {
         return domicilio;
     }
 
-    public void setDomicilio(Object domicilio) {
+    public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
     }
 
