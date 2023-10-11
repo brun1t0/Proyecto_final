@@ -72,6 +72,15 @@ public class Ejemplar {
        
     }
 
+    public Ejemplar(Libro libro, int idCodigo, boolean estado) {
+        this.libro = libro;
+        this.idCodigo = idCodigo;
+        this.estado = estado;
+    }
+    
+     
+    
+
     public Libro getLibro() {
         return libro;
     }
