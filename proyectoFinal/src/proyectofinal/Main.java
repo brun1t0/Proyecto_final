@@ -2,63 +2,33 @@
 package proyectofinal;
 
 
+import java.util.Date;
 import proyectofinal.Entidades.*;
 import proyectofinal.accesoDatos.*;
 
-/**
- *
- * @author Usuario
- */
+
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
-    LibroData ld = new LibroData();
-    Libro Coraline = new Libro(2221232, "Coralifdsfdsfne: La puerta secreta", 2009, "Fantasía","Bloomsburry" , true, "Neil Gaiman");
-//        
-   ld.guardarLibro(Coraline);
-////        System.out.println("");
-////        System.out.println("");
-////        System.out.println("");
-////        
-////        System.out.println(ld.buscarLibroPorISBN(2221232));
-////        
-////        System.out.println("");
-////        System.out.println("");
-////        System.out.println("");
-////        
-//        for (Libro libro : ld.buscarLibrosPorTitulo("Coraline")) {
-//            System.out.println(libro.toString());
-//        }
-//        
-////        System.out.println("");
-////        System.out.println("");
-////        System.out.println("");
-////        
-////        for (Libro libro : ld.listarLibros()) {
-////            System.out.println(libro.toString());
-////        }
-////        
-////        System.out.println("");
-////        System.out.println("");
-////        System.out.println("");
-////        
-//        Libro Coraline1 = new Libro(2221232, "Coraline y la puerta secreta", 2009, "Fantasía","Bloomsburry" , true, "Neil Gaiman");
-////        
-//        ld.modificarLibro(Coraline1);
-//        for (Libro libro : ld.buscarLibrosPorAutor("Neil Gaiman")) {
-//        System.out.println(libro.toString());  
-//        }
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-//        for (Libro libro : ld.buscarLibrosPorEditorial("bloomsburry")) {
-//            System.out.println(libro.toString());
-//        }
-        ld.eliminarLibro(2221232);
-        
+
+    PrestamoData prestamoData = new PrestamoData();
+
+        Lector lector = new Lector();
+        lector.setNroSocio(8);  // Reemplaza con el número de socio del lector existente
+        Ejemplar ejemplar = new Ejemplar();
+        ejemplar.setCodigo(16);  // Reemplaza con el código del ejemplar existente
+        Prestamo prestamo = new Prestamo();
+        prestamo.setFechaInicio(new Date());
+        prestamo.setFechaFin(new Date());
+        prestamo.setEstado(true);  // Define el estado como sea necesario
+
+        prestamo.setLector(lector);
+        prestamo.setEjemplar(ejemplar);
+        prestamoData.finalizarPrestamo(prestamo);
+        //prestamoData.crearPrestamo(prestamo);
     }
+
+
 
 }

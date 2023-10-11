@@ -5,8 +5,12 @@
 package proyectofinal.accesoDatos;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.mariadb.jdbc.export.Prepare;
 import proyectofinal.Entidades.*;
 
 /**
@@ -29,7 +33,7 @@ private List<Prestamo> listaP = new ArrayList<>();
     }
     
 //Metodos
-    
+  //Gestion de prestamo  
     public void crearPrestamo(Prestamo p) {
     try {
         // Insertar un nuevo préstamo en la base de datos
@@ -43,8 +47,8 @@ private List<Prestamo> listaP = new ArrayList<>();
         ps.executeUpdate();
 
         // Actualizar el estado del ejemplar
-        String sqlUpdateEjemplar = "UPDATE ejemplar SET estado = ? WHERE idCodigo = ?";
-        PreparedStatement psUpdateEjemplar = con.prepareStatement(sqlUpdateEjemplar);
+        String sql2 = "UPDATE ejemplar SET estado = ? WHERE idCodigo = ?";
+        PreparedStatement psUpdateEjemplar = con.prepareStatement(sql2);
         psUpdateEjemplar.setInt(1, 0);  // Actualiza el estado del ejemplar a "0"
         psUpdateEjemplar.setInt(2, p.getEjemplar().getCodigo());
         psUpdateEjemplar.executeUpdate();
@@ -55,6 +59,35 @@ private List<Prestamo> listaP = new ArrayList<>();
 }
  
     
+    
+    
+    public void finalizarPrestamo(Prestamo p) {
+    try {
+        // Actualizar el estado del préstamo
+        String sql = "UPDATE Prestamo SET estado = ? WHERE idSocio = ? AND idCodigo = ?";
+        PreparedStatement psUpdatePrestamo = con.prepareStatement(sql);
+        psUpdatePrestamo.setBoolean(1, p.isEstado());
+        psUpdatePrestamo.setInt(2, p.getLector().getNroSocio());
+        psUpdatePrestamo.setInt(3, p.getEjemplar().getCodigo());
+        int rowsUpdated = psUpdatePrestamo.executeUpdate();
+        
+        if (rowsUpdated > 0) {
+            // Actualizar el estado del ejemplar a disponible (true)
+            String sql2 = "UPDATE ejemplar SET estado = ? WHERE idCodigo = ?";
+            PreparedStatement psUpdateEjemplar = con.prepareStatement(sql2);
+            psUpdateEjemplar.setBoolean(1, true);  // Cambiar el estado a "disponible" (true)
+            psUpdateEjemplar.setInt(2, p.getEjemplar().getCodigo());
+            psUpdateEjemplar.executeUpdate();
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al realizar la devolución: " + ex.getMessage());
+    }
+}
+
+
+
+  //Busqueda de prestamos    
+
     public Prestamo buscarPrestamoPorEjemplar(int idCodigo) {
     try {
         // Buscar un préstamo por ID de ejemplar
@@ -78,7 +111,36 @@ private List<Prestamo> listaP = new ArrayList<>();
     }
     return null;
 }
-
+    
+    
+    public List<Prestamo> buscarPrestamosPorLector(int Lector){
+    try {
+        List<Prestamo> listaPrestamo = new ArrayList<>();
+        String sql= "SELECT * FROM `prestamo` WHERE prestamo.estado = 1 AND prestamo.idSocio = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(2, Lector);
+        ResultSet rowsUpdate = ps.executeQuery();
+        while (rowsUpdate.next()){
+        //Prestamo p = new Prestamo(rowsUpdate.getDate(1), rowsUpdate.getDate(2), rowsUpdate.getInt(5), rowsUpdate.getInt(4), rowsUpdate.getBoolean(3));
+        }
+        return null;
+    } catch (SQLException ex) {
+        Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return null;
+    }
+    
+    
+    public Lector obtenerLectoresQuePidieronPrestamos(){
+    
+    return null;
+    
+    }
+    
+    public Ejemplar obtenerLibrosPrestadosEnUnaFechaPredeterminada(LocalDate fecha){
+        
+    return null;
+    }
 
     
    
