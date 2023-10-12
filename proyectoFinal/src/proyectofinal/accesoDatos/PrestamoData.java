@@ -22,9 +22,8 @@ public class PrestamoData {
 //    private EjemplarData ejData;
 //    private UsuarioData uData;
 //    private LibroData liData;
-    private List<Prestamo> listaPrestamo = new ArrayList<>();
-    private List<Lector> listaLector = new ArrayList<>();
-    private List<Ejemplar> listaEj = new ArrayList<>();
+    
+
     private EjemplarData ejData = new EjemplarData();
     private UsuarioData uData = new UsuarioData();
     private LibroData lData = new LibroData();
@@ -106,11 +105,13 @@ public class PrestamoData {
     }
 
     public List<Prestamo> buscarPrestamosPorLector(int Lector) {
+        List<Prestamo> listaPrestamo = new ArrayList<>();
         try {
             String sql = "SELECT * FROM `prestamo` WHERE prestamo.estado = 1 AND prestamo.idSocio = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(2, Lector);
             ResultSet rowsUpdate = ps.executeQuery();
+            
             while (rowsUpdate.next()) {
                 Ejemplar ej = ejData.buscarEjemplarPorIdCodigo(rowsUpdate.getInt(5));
                 Lector lec = uData.buscarLectorPorId(rowsUpdate.getInt(4));
@@ -125,6 +126,7 @@ public class PrestamoData {
     }
 
     public List<Lector> obtenerLectoresQuePidieronPrestamos() {
+        List<Lector> listaLector = new ArrayList<>();
         try {
             String sql = "SELECT usuario.idSocio, usuario.nombre, usuario.domicilio, usuario.mail, usuario.estado FROM `prestamo` JOIN usuario ON (prestamo.idSocio = usuario.idSocio) WHERE prestamo.estado = 1";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -143,6 +145,7 @@ public class PrestamoData {
     }
 
     public List<Ejemplar> obtenerLibrosPrestadosEnUnaFechaPredeterminada(LocalDate fecha) {
+        List<Ejemplar> listaEj = new ArrayList<>();
         try {
            
             String sql = "SELECT ejemplar.idCodigo, ejemplar.isbn, ejemplar.estado FROM prestamo "
