@@ -22,7 +22,7 @@ private Connection con = null;
 private EjemplarData ejData;
 private UsuarioData uData;
 private LibroData liData;
-private List<Prestamo> listaP = new ArrayList<>(); 
+
 
     public PrestamoData(){
     con = Conexion.getConexion();
@@ -44,15 +44,15 @@ private List<Prestamo> listaP = new ArrayList<>();
         ps.setBoolean(3, p.isEstado());
         ps.setInt(4, p.getLector().getNroSocio());
         ps.setInt(5, p.getEjemplar().getIdCodigo());
-        ps.executeUpdate();
-
+        int validar = ps.executeUpdate();
+        ejData.prestarEjemplar(p.getEjemplar().getIdCodigo());
         // Actualizar el estado del ejemplar
-        String sql2 = "UPDATE ejemplar SET estado = ? WHERE idCodigo = ?";
-        PreparedStatement psUpdateEjemplar = con.prepareStatement(sql2);
-        psUpdateEjemplar.setInt(1, 0);  // Actualiza el estado del ejemplar a "0"
-        psUpdateEjemplar.setInt(2, p.getEjemplar().getIdCodigo());
-        psUpdateEjemplar.executeUpdate();
+        if (validar > 0) {
+            
+            System.out.println("Se ha prestado un ejemplar correctamente.");
 
+        }
+        
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error al crear préstamo: " + ex.getMessage());
     }
@@ -95,16 +95,17 @@ private List<Prestamo> listaP = new ArrayList<>();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, idCodigo);
         ResultSet rs = ps.executeQuery();
+        
         if (rs.next()) {
             Prestamo prestamo = new Prestamo();
             // Configurar los atributos del préstamo
-            prestamo.setFechaInicio(rs.getDate("fechaInicio"));
-            prestamo.setFechaFin(rs.getDate("fechaFin"));
-            prestamo.setEstado(rs.getBoolean("estado"));
+            prestamo.setFechaInicio(rs.getDate(1));
+            prestamo.setFechaFin(rs.getDate(2));
+            prestamo.setEstado(rs.getBoolean(3));
             // Recuperar el lector y ejemplar asociados al préstamo
-//            prestamo.setLector(uData.obtenerLectorPorId(rs.getInt("idSocio")));
-//            prestamo.setEjemplar(ejData.obtenerEjemplarPorId(idCodigo));
-//            return prestamo;
+            prestamo.setLector(uData.buscarLectorPorId(rs.getInt(4)));
+            prestamo.setEjemplar(ejData.buscarEjemplarPorIdCodigo(idCodigo, false));
+            return prestamo;
         }
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error al buscar préstamo por ejemplar: " + ex.getMessage());
@@ -113,28 +114,34 @@ private List<Prestamo> listaP = new ArrayList<>();
 }
     
     
-    public List<Prestamo> buscarPrestamosPorLector(int Lector){
-    try {
+    public List<Prestamo> buscarPrestamosPorLector(int idLector) {
         List<Prestamo> listaPrestamo = new ArrayList<>();
-        String sql= "SELECT * FROM `prestamo` WHERE prestamo.estado = 1 AND prestamo.idSocio = ?";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(2, Lector);
-        ResultSet rowsUpdate = ps.executeQuery();
-        EjemplarData ejData = new EjemplarData();
-        UsuarioData uData = new UsuarioData();
-        while (rowsUpdate.next()){ 
-        Ejemplar ej = ejData.buscarEjemplarPorIdCodigo(rowsUpdate.getInt(5));
-        Lector lec = uData.buscarLectorPorId(rowsUpdate.getInt(4));
-        Prestamo p = new Prestamo(rowsUpdate.getDate(1), rowsUpdate.getDate(2), ej, lec, rowsUpdate.getBoolean(3));
-        listaPrestamo.add(p);
+
+        String sql = "SELECT * FROM `prestamo` WHERE estado = 1 AND idSocio = " + idLector;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rowsUpdate = ps.executeQuery();
+
+            EjemplarData ejData = new EjemplarData();
+            UsuarioData uData = new UsuarioData();
+
+            while (rowsUpdate.next()) {
+
+                Ejemplar ej = ejData.buscarEjemplarPorIdCodigo(rowsUpdate.getInt("idCodigo"), false);
+                
+                Lector lec = uData.buscarLectorPorId(rowsUpdate.getInt(4));
+                Prestamo p = new Prestamo(rowsUpdate.getDate(1), rowsUpdate.getDate(2), ej, lec, rowsUpdate.getBoolean(3));
+                listaPrestamo.add(p);
+            }
+            return listaPrestamo;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listaPrestamo;
-    } catch (SQLException ex) {
-        Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
     }
-    return null;
-    }
-    
+
     
     public List<Lector> obtenerLectoresQuePidieronPrestamos(){
     try {
