@@ -48,7 +48,7 @@ public class UsuarioData {
                 usuario.setDomicilio(rs.getString(3));
                 usuario.setMail(rs.getString(4));
                 usuario.setEstado(rs.getBoolean(5));
-              
+                System.out.println("El usuario se a encontrado con exito.");
 
                 return usuario;
             }

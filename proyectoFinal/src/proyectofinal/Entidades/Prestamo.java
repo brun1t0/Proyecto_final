@@ -70,7 +70,7 @@ public class Prestamo {
     
     @Override
     public String toString() {
-        return "Prestamo{" + "fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", ejemplar=" + ejemplar + ", lector=" + lector + ", estado=" + estado + '}';
+        return "Prestamo{" + "fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", libro=" + ejemplar + ", lector=" + lector + ", estado=" + estado + '}';
     }
     
     
