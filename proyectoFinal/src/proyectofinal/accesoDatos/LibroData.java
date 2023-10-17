@@ -19,7 +19,7 @@ import proyectofinal.Entidades.*;
 public class LibroData {
 
     private Connection con = null;
-    private AutorData autordata = new AutorData();
+
 
     public LibroData() {
 

@@ -89,18 +89,9 @@ public class Libro {
     }
 
     @Override
-public String toString() {
-    return "Libro{" +
-            "ISBN=" + isbn +
-            ", Título='" + titulo + '\'' +
-            ", Año=" + anio +
-            ", Tipo='" + tipo + '\'' +
-            ", Editorial='" + editorial + '\'' +
-            ", Estado='" + (estado ? "Disponible" : "No Disponible") + '\'' +
-            ", Autor='" + autor + '\'' +
-            '}';
-}
-
+    public String toString() {
+        return "Libro{" + "isbn=" + isbn + ", titulo=" + titulo + ", anio=" + anio + ", tipo=" + tipo + ", editorial=" + editorial + ", estado=" + estado + ", autor=" + autor + '}';
+    }
 
    
 }
