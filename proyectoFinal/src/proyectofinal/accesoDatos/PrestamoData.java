@@ -52,7 +52,7 @@ private LibroData liData;
             System.out.println("Se ha prestado un ejemplar correctamente.");
 
         }
-        
+        ps.close();
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error al crear préstamo: " + ex.getMessage());
     }
@@ -64,21 +64,18 @@ private LibroData liData;
     public void finalizarPrestamo(Prestamo p) {
     try {
         // Actualizar el estado del préstamo
-        String sql = "UPDATE Prestamo SET estado = ? WHERE idSocio = ? AND idCodigo = ?";
+        String sql = "UPDATE Prestamo SET estado = 0 WHERE idSocio = ? AND idCodigo = ?";
         PreparedStatement psUpdatePrestamo = con.prepareStatement(sql);
-        psUpdatePrestamo.setBoolean(1, p.isEstado());
-        psUpdatePrestamo.setInt(2, p.getLector().getNroSocio());
-        psUpdatePrestamo.setInt(3, p.getEjemplar().getIdCodigo());
+        
+        psUpdatePrestamo.setInt(1, p.getLector().getNroSocio());
+        psUpdatePrestamo.setInt(2, p.getEjemplar().getIdCodigo());
         int rowsUpdated = psUpdatePrestamo.executeUpdate();
         
         if (rowsUpdated > 0) {
             // Actualizar el estado del ejemplar a disponible (true)
-            String sql2 = "UPDATE ejemplar SET estado = ? WHERE idCodigo = ?";
-            PreparedStatement psUpdateEjemplar = con.prepareStatement(sql2);
-            psUpdateEjemplar.setBoolean(1, true);  // Cambiar el estado a "disponible" (true)
-            psUpdateEjemplar.setInt(2, p.getEjemplar().getIdCodigo());
-            psUpdateEjemplar.executeUpdate();
+            ejData.devolverEjemplar(p.getEjemplar().getIdCodigo());
         }
+        psUpdatePrestamo.close();
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error al realizar la devolución: " + ex.getMessage());
     }
@@ -107,6 +104,7 @@ private LibroData liData;
             prestamo.setEjemplar(ejData.buscarEjemplarPorIdCodigo(idCodigo, false));
             return prestamo;
         }
+        ps.close();
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error al buscar préstamo por ejemplar: " + ex.getMessage());
     }
@@ -134,8 +132,9 @@ private LibroData liData;
                 Prestamo p = new Prestamo(rowsUpdate.getDate(1), rowsUpdate.getDate(2), ej, lec, rowsUpdate.getBoolean(3));
                 listaPrestamo.add(p);
             }
+            ps.close();
             return listaPrestamo;
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
         }

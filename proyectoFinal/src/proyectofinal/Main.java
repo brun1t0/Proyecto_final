@@ -22,6 +22,8 @@ public class Main {
          System.out.println("");
           System.out.println("");
            System.out.println("");
+           
+           
     Ejemplar ejem = ed.buscarEjemplarPorIdCodigo(3, true);
         System.out.println(ejem);
          System.out.println("");
