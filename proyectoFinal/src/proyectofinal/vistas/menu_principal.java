@@ -95,7 +95,13 @@ public class menu_principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+       VistaEjemplar gp = new VistaEjemplar();
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        gp.setVisible(true);
+        escritorio.add(gp);
+        escritorio.moveToFront(gp);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void mGestorLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGestorLibrosActionPerformed
