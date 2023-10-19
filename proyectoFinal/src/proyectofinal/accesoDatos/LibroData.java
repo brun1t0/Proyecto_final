@@ -45,7 +45,7 @@ public class LibroData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar libro." + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Ya hay un libro con ese ISBN.");
         }
     }
 
@@ -138,7 +138,7 @@ public class LibroData {
             if (verificar > 0) {
                 System.out.println("El libro se ha actualizado correctamente." + libro.getIsbn());
 
-            }
+            } else{JOptionPane.showMessageDialog(null, "No existe un libro con ese ISBN.");}
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar libro " + ex.getMessage());
         }
