@@ -39,7 +39,7 @@ public class LibroData {
 
             if (fila > 0) {
 
-                System.out.println("Se ha guardado el libro con éxito, ISBN:" + libro.getIsbn());
+                JOptionPane.showMessageDialog(null, "Se ha guardado un libro con éxito. " + "ISBN: " + libro.getIsbn());
             }
 
             ps.close();
@@ -136,7 +136,7 @@ public class LibroData {
             int verificar = ps.executeUpdate();
 
             if (verificar > 0) {
-                System.out.println("El libro se ha actualizado correctamente." + libro.getIsbn());
+                JOptionPane.showMessageDialog(null, "Se ha actualizado un libro con éxito. " + "ISBN: " + libro.getIsbn());
 
             } else{JOptionPane.showMessageDialog(null, "No existe un libro con ese ISBN.");}
         } catch (SQLException ex) {
@@ -242,11 +242,43 @@ public class LibroData {
             int filaEliminada = ps.executeUpdate();
 
             if (filaEliminada > 0) {
-                System.out.println("Se ha eliminado el libro correctamente.");
+                JOptionPane.showMessageDialog(null, "Se ha eliminado un libro con éxito. " + "ISBN: " + isbn);
+            }else{
+            JOptionPane.showMessageDialog(null, "No se ha encontrado ningún libro con ese ISBN.");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar libro " + ex.getMessage());
         }
+
+    }
+    
+    public Libro buscarPorISBNSinEstado(long isbn) {
+        String sql = "SELECT * FROM libro WHERE isbn = " + isbn;
+
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.executeQuery();
+            ResultSet rs = ps.getResultSet();
+            Libro libro = new Libro();
+
+            if (rs.next()) {
+
+                libro.setIsbn(isbn);
+                libro.setTitulo(rs.getString(3));
+                libro.setAutor(rs.getString(2));
+                libro.setAnio(rs.getInt(4));
+                libro.setTipo(rs.getString(5));
+                libro.setEditorial(rs.getString(6));
+                libro.setEstado(rs.getBoolean(7));
+                System.out.println("El libro se ha encontrado con éxito.");
+                return libro;
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar libro");
+        }
+        return null;
 
     }
 }
