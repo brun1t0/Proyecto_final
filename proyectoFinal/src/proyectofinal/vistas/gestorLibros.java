@@ -84,10 +84,25 @@ private LibroData ld = new LibroData();
         });
 
         bEliminar.setText("Eliminar");
+        bEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bEliminarActionPerformed(evt);
+            }
+        });
 
         bNuevo.setText("Nuevo");
+        bNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bNuevoActionPerformed(evt);
+            }
+        });
 
-        bBuscar.setText("Buscar");
+        bBuscar.setText("Buscar por ISBN");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,19 +143,19 @@ private LibroData ld = new LibroData();
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(rbEstado)
-                                    .addComponent(tEditorial)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(bNuevo)
-                        .addGap(18, 18, 18)
-                        .addComponent(bEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(bModificar)
-                        .addGap(4, 4, 4)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bGuardar)
-                    .addComponent(bBuscar))
-                .addContainerGap(291, Short.MAX_VALUE))
+                                    .addComponent(tEditorial))))))
+                .addComponent(bBuscar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addComponent(bNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bEliminar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bModificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bGuardar)
+                .addGap(215, 215, 215))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,6 +262,7 @@ private LibroData ld = new LibroData();
         try {
             Libro libro = new Libro(isbn, titulo, anio, tipo, editorial, estado, autor);
             ld.guardarLibro(libro);
+            
 
         } catch (NullPointerException np) {
             JOptionPane.showMessageDialog(this, "No se ha podido guardar el libro, reinténtelo nuevamente.");
@@ -313,11 +329,52 @@ private LibroData ld = new LibroData();
          try {
             Libro libro = new Libro(isbn, titulo, anio, tipo, editorial, estado, autor);
             ld.modificarLibro(libro);
+           
 
         } catch (NullPointerException np) {
             JOptionPane.showMessageDialog(this, "No se ha podido modificar el libro, reinténtelo nuevamente.");
         }
     }//GEN-LAST:event_bModificarActionPerformed
+
+    private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
+        try{
+        long isbn = Long.parseLong(tIsbn.getText());
+        ld.eliminarLibro(isbn);
+       
+        }catch(NumberFormatException nf){
+        JOptionPane.showMessageDialog(this, "No se ha podido eliminar el libro. Intente usar un formato numérico entero.");
+        }
+    }//GEN-LAST:event_bEliminarActionPerformed
+
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        Long isbn = null;
+        
+        try{
+        isbn = Long.parseLong(tIsbn.getText());
+        Libro libroEncontrado = ld.buscarPorISBNSinEstado(isbn);
+        
+        tTitulo.setText(libroEncontrado.getTitulo());
+        tAnio.setText(libroEncontrado.getAnio()+"");
+        cbTipo.setSelectedItem(libroEncontrado.getTipo());
+        tAutor.setText(libroEncontrado.getAutor());
+        tEditorial.setText(libroEncontrado.getEditorial());
+        rbEstado.setSelected(libroEncontrado.isEstado());
+        
+        }catch(NumberFormatException nf){
+         JOptionPane.showMessageDialog(this, "No se ha podido buscar el libro. Intente usar un formato numérico entero.");
+        }catch(NullPointerException np){JOptionPane.showMessageDialog(this, "El ISBN ingresado no existe.");}
+      
+    }//GEN-LAST:event_bBuscarActionPerformed
+
+    private void bNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNuevoActionPerformed
+        tIsbn.setText("");
+        tTitulo.setText("");
+        tAnio.setText("");
+        cbTipo.setSelectedItem("Acción");
+        tAutor.setText("");
+        tEditorial.setText("");
+        rbEstado.setSelected(false);
+    }//GEN-LAST:event_bNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -357,6 +414,7 @@ private LibroData ld = new LibroData();
         cbTipo.addItem("Terror");
         cbTipo.addItem("Thriller");
         cbTipo.addItem("Infantil");
-
+        cbTipo.addItem("Novela");
+       
     }
 }
