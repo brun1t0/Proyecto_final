@@ -86,13 +86,11 @@ public class EjemplarData {
     }
 
     public Ejemplar buscarEjemplarPorIdCodigo(int idCodigo, boolean estado) {
-        String sql = "SELECT idCodigo, estado, isbn FROM ejemplar WHERE idCodigo = " + idCodigo + " AND estado = " + estado;
+        String sql = "SELECT idCodigo, estado, isbn FROM ejemplar WHERE idCodigo = "
+                + idCodigo + " AND estado = " + estado;
         try {
-
             PreparedStatement ps = con.prepareStatement(sql);
-
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 boolean estado1 = rs.getBoolean(2);
                 long isbn = rs.getLong(3);
@@ -101,42 +99,34 @@ public class EjemplarData {
                 Ejemplar ej = new Ejemplar(lib, idCodigo, estado1);
                 return ej;
             }
-
             ps.close();
         } catch (SQLException e) {
             System.err.println("Error al buscar ejemplares por idCodigo: " + e.getMessage());
         }
-
         return null;
     }
 
     public List<Ejemplar> buscarEjemplarPorNombre(String nombreEjemplar) {
         List<Ejemplar> ejemplares = new ArrayList<>();
-
         try {
-            String sql = "SELECT ejemplar.idCodigo, ejemplar.estado, ejemplar.isbn, libro.titulo"
+            String sql = "SELECT ejemplar.idCodigo, ejemplar.estado, ejemplar.isbn, libro.titulo "
                     + "FROM ejemplar JOIN libro ON (ejemplar.isbn = libro.isbn) "
-                    + "WHERE libro.titulo LIKE '%" + nombreEjemplar + "%'";
-
+                    + "WHERE libro.titulo LIKE ?";
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + nombreEjemplar + "%");
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
                 int idCodigo = rs.getInt("idCodigo");
                 boolean estado = rs.getBoolean("estado");
                 long isbnResult = rs.getLong("isbn");
-
                 Libro libro = ld.buscarLibroPorISBN(isbnResult);
-
                 Ejemplar ejemplar = new Ejemplar(libro, idCodigo, estado, isbnResult);
                 ejemplares.add(ejemplar);
                 System.out.println("Título del libro: " + libro.getTitulo());
-
             }
             if (ejemplares.isEmpty()) {
                 System.out.println("No se encontraron ejemplares para el nombre: " + nombreEjemplar);
             }
-
             ps.close();
         } catch (SQLException e) {
             System.err.println("Error al buscar ejemplares: " + e.getMessage());
@@ -144,6 +134,34 @@ public class EjemplarData {
         return ejemplares;
     }
 
+    public List<Ejemplar> buscarEjemplarPorAutor(String autor) {
+    List<Ejemplar> ejemplares = new ArrayList<>();
+    try {
+        String sql = "SELECT ejemplar.idCodigo, ejemplar.estado, ejemplar.isbn, libro.titulo "
+                + "FROM ejemplar JOIN libro ON (ejemplar.isbn = libro.isbn) "
+                + "WHERE libro.autor LIKE ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, "%" + autor + "%");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            int idCodigo = rs.getInt("idCodigo");
+            boolean estado = rs.getBoolean("estado");
+            long isbnResult = rs.getLong("isbn");
+            Libro libro = ld.buscarLibroPorISBN(isbnResult);
+            Ejemplar ejemplar = new Ejemplar(libro, idCodigo, estado, isbnResult);
+            ejemplares.add(ejemplar);
+            System.out.println("Título del libro: " + libro.getTitulo());
+        }
+        if (ejemplares.isEmpty()) {
+            System.out.println("No se encontraron ejemplares para el autor: " + autor);
+        }
+        ps.close();
+    } catch (SQLException e) {
+        System.err.println("Error al buscar ejemplares: " + e.getMessage());
+    }
+    return ejemplares;
+}
+    
     public int listarCantidadDeEjemplaresDisponibles() {
         List<Ejemplar> ejemplares = new ArrayList<>();
         int cantidadLibrosDisponibles = 0;

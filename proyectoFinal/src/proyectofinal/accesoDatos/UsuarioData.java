@@ -19,13 +19,13 @@ public class UsuarioData {
 
     public void registrarLector(Lector usuario) {
         String sql = "INSERT INTO `usuario`(`nombre`, `domicilio`, `mail`,  `estado`) "
-                + "VALUES ('" + usuario.getNombre() + "','" + usuario.getDomicilio() + "','" + usuario.getMail() + "', 1)";
+                + "VALUES ('" + usuario.getNombre() + "','" + usuario.getDomicilio() + "','" + usuario.getMail() + "', "+usuario.isEstado()+")";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             int validacion = ps.executeUpdate();
             if (validacion > 0) {
-                System.out.println("Se registro correctamente el usuario");
+               JOptionPane.showMessageDialog(null, "Se registro correctamente usuario.");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -34,11 +34,11 @@ public class UsuarioData {
     }
 
     public Lector buscarLectorPorId(int nroSocio) {
-        String sql = "SELECT * FROM usuario WHERE idSocio = ? AND estado = 1";
+        String sql = "SELECT * FROM usuario WHERE idSocio = " + nroSocio;
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, nroSocio);
+           // ps.setInt(1, nroSocio);
             ResultSet rs = ps.executeQuery();
             Lector usuario = new Lector();
 
@@ -63,15 +63,18 @@ public class UsuarioData {
     }
 
     public void modificarDatosDeLector(Lector usuario) {
-        String sql = "UPDATE usuario SET `nombre`= '" + usuario.getNombre() + "',`domicilio`= '" + usuario.getDomicilio() + 
-                "',`mail`= '"+ usuario.getMail() + "',`estado`= " + usuario.isEstado() + " WHERE idSocio = " + usuario.getNroSocio();
-
+        
+        String sql = "UPDATE usuario SET `nombre` = '" + usuario.getNombre() + "', `domicilio` = '" + usuario.getDomicilio() + 
+                "', `mail` = '"+ usuario.getMail() + "', `estado` = " + usuario.isEstado() + " WHERE idSocio = " + usuario.getNroSocio();
+        System.out.println(sql);
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             int modif = ps.executeUpdate();
-
+            //System.out.println(this.buscarLectorPorId(usuario.getNroSocio()));
             if (modif > 0) {
-                System.out.println("Se modifico el usuario con exito.");
+                JOptionPane.showMessageDialog(null, "Usuario modificado exitosamente.");
+            }else{
+                System.out.println("No se modifico ningun usuario");
             }
             ps.close();
 
@@ -88,7 +91,9 @@ public class UsuarioData {
             ps.setInt(1, nroSocio);
             int validacion = ps.executeUpdate();
                 if(validacion > 0){
-                 System.out.println("Se eliminó correctamente el usuario"+ nroSocio);   
+                   JOptionPane.showMessageDialog(null, "Se eliminó el usuario con ID: " + nroSocio);
+                }else{
+                    JOptionPane.showMessageDialog(null, "No se encontró un usuario con el Id proporcionado.");
                 }
                 ps.close();
         } catch (SQLException ex) {
