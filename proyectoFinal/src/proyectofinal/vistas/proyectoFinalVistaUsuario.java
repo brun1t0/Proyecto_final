@@ -232,16 +232,22 @@ public class proyectoFinalVistaUsuario extends javax.swing.JInternalFrame {
     }
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
         try {
-        int nroSocio = Integer.parseInt(jTidSocio.getText());      
+        String nombre = jTNombre.getText();
+        String domicilio = jTDomicilio.getText();
+        String email = jTEmail.getText();
+        boolean estado = jRBEstado.isSelected();   
+        int id = Integer.parseInt(jTidSocio.getText());
+        Lector usuario = new Lector(id, nombre, domicilio, email, estado);
         UsuarioData usuarioData = new UsuarioData();
         
-        // Verificar si el alumno ya existe por su DNI
-        Lector usuario = usuarioData.buscarLectorPorId(nroSocio);
-            System.out.println(usuario.toString());
+        // Verificar si el alumno ya existe por su ID
+        
+       
+        
         if (usuario != null) {
             // El alumno ya existe, es una actualización
             usuarioData.modificarDatosDeLector(usuario);
-            JOptionPane.showMessageDialog(null, "Usuario modificado exitosamente.");
+            
         } else {
            
             JOptionPane.showMessageDialog(null, "No se pudo modificar el usuario.");

@@ -63,15 +63,16 @@ public class UsuarioData {
     }
 
     public void modificarDatosDeLector(Lector usuario) {
-        String sql = "UPDATE usuario SET `nombre`= '" + usuario.getNombre() + "',`domicilio`= '" + usuario.getDomicilio() + 
-                "',`mail`= '"+ usuario.getMail() + "',`estado`= " + usuario.isEstado() + " WHERE idSocio = " + usuario.getNroSocio();
-
+        
+        String sql = "UPDATE usuario SET `nombre` = '" + usuario.getNombre() + "', `domicilio` = '" + usuario.getDomicilio() + 
+                "', `mail` = '"+ usuario.getMail() + "', `estado` = " + usuario.isEstado() + " WHERE idSocio = " + usuario.getNroSocio();
+        System.out.println(sql);
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             int modif = ps.executeUpdate();
-
+            //System.out.println(this.buscarLectorPorId(usuario.getNroSocio()));
             if (modif > 0) {
-                System.out.println("Se modifico el usuario con exito.");
+                JOptionPane.showMessageDialog(null, "Usuario modificado exitosamente.");
             }else{
                 System.out.println("No se modifico ningun usuario");
             }
