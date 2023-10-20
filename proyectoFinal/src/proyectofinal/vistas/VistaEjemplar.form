@@ -22,24 +22,21 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jTextField4" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextField2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextField3" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextField1" alignment="0" pref="388" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel1" min="-2" pref="630" max="-2" attributes="0"/>
+                          <Component id="jTFBuscar" alignment="0" min="-2" pref="388" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jBuscar" min="-2" pref="201" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jLabel3" min="-2" pref="268" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jBsalir" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="jLabel5" alignment="1" min="-2" pref="304" max="-2" attributes="0"/>
+                                      <Component id="jCBTipoBusqueda" alignment="0" min="-2" pref="310" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jBuscar" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" alignment="0" min="-2" pref="268" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -50,17 +47,9 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="jBnuevo" min="-2" pref="127" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="jBguardar" min="-2" pref="111" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
-                                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                              <Component id="jBEliminar" min="-2" pref="250" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                      <Component id="jBnuevo" min="-2" pref="127" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jBguardar" min="-2" pref="111" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel4" min="-2" pref="63" max="-2" attributes="0"/>
@@ -68,17 +57,19 @@
                                       <Component id="jTFisbn" min="-2" pref="221" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="0" pref="70" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="jLabel1" min="-2" pref="630" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="179" max="32767" attributes="0"/>
+                      <Component id="jBEliminar" min="-2" pref="250" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      <Component id="jBModificar" min="-2" pref="250" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jBsalir" min="-2" pref="101" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -86,46 +77,54 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jLabel1" min="-2" pref="33" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextField1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jTFidCodigo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jRBestado" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="jTFidCodigo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="jRBestado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jCBTipoBusqueda" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="jTFisbn" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jTextField3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextField2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jBnuevo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jBguardar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextField4" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jBEliminar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="jTFBuscar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jBuscar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jBsalir" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="jBnuevo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="jBguardar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                      <Component id="jBuscar" min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane2" min="-2" pref="116" max="-2" attributes="0"/>
+              <Component id="jScrollPane2" min="-2" pref="295" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jBEliminar" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="jBModificar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="jBsalir" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -199,17 +198,18 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tTablaEjemplares">
+        <Component class="javax.swing.JTable" name="jtTablaEjemplares">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="4">
-                <Column editable="true" title="ISBN" type="java.lang.Double"/>
-                <Column editable="true" title="Autor" type="java.lang.String"/>
-                <Column editable="true" title="T&#xed;tulo" type="java.lang.String"/>
-                <Column editable="true" title="A&#xf1;o" type="java.lang.Integer"/>
-                <Column editable="true" title="Tipo" type="java.lang.String"/>
-                <Column editable="true" title="Editorial" type="java.lang.String"/>
-                <Column editable="true" title="Estado" type="java.lang.Boolean"/>
+              <Table columnCount="8" rowCount="4">
+                <Column editable="false" title="IdCodigo" type="java.lang.Integer"/>
+                <Column editable="false" title="ISBN" type="java.lang.Double"/>
+                <Column editable="false" title="Autor" type="java.lang.String"/>
+                <Column editable="false" title="T&#xed;tulo" type="java.lang.String"/>
+                <Column editable="false" title="A&#xf1;o" type="java.lang.Integer"/>
+                <Column editable="false" title="Tipo" type="java.lang.String"/>
+                <Column editable="false" title="Editorial" type="java.lang.String"/>
+                <Column editable="false" title="Estado" type="java.lang.Boolean"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -225,22 +225,27 @@
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="T&#xed;tulo"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="A&#xf1;o"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Tipo"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Editorial"/>
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
@@ -258,36 +263,9 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="jTextField1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ingrese Nombre del Ejemplar a buscar "/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="jTFBuscar">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ingrese Autor del Ejemplar a buscar "/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField3">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ingrese ISBN del Ejemplar a buscar "/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField3ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField4">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ingrese A&#xf1;o del Ejemplar a buscar "/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTFBuscarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -317,6 +295,37 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Estado"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jCBTipoBusqueda">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Buscar por Codigo de Ejemplar"/>
+            <StringItem index="1" value="Buscar por ISBN de Ejemplar"/>
+            <StringItem index="2" value="Buscar por Nombre de Ejemplar"/>
+            <StringItem index="3" value="Buscar por Autor de Ejemplar"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCBTipoBusquedaActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Seleccione el tipo de busqueda a realizar"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBModificar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Modificar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBModificarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
