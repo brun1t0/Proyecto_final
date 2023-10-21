@@ -271,5 +271,28 @@ public class EjemplarData {
         }
 
     }
+    
+    public List<Ejemplar> listarEjemplares(){
+            ArrayList<Ejemplar> ejemplares = new ArrayList<>();
+        try {
+            String sql ="SELECT ejemplar.idCodigo, ejemplar.isbn, libro.titulo "
+                    + "FROM ejemplar JOIN libro ON (ejemplar.isbn = libro.isbn) "
+                    + "WHERE ejemplar.estado = 1";
+            PreparedStatement ps =con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Ejemplar ejemplar = new Ejemplar();
+                ejemplar.setIdCodigo(rs.getInt("idCodigo"));
+                ejemplar.setIsbn(rs.getLong("isbn"));
+                ejemplar.setNombreLibro(rs.getString("titulo"));
+                ejemplares.add(ejemplar);
+            }
+               ps.close();
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ejemplar"+ex.getMessage());
+        }
+        return ejemplares;
+        
+    }
 
 }

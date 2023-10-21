@@ -21,12 +21,12 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jpHead" alignment="1" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jpFooter" max="32767" attributes="0"/>
                   <Component id="jpBody" max="32767" attributes="0"/>
+                  <Component id="jpFooter" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="154" max="32767" attributes="0"/>
+              <EmptySpace pref="94" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -36,7 +36,7 @@
               <Component id="jpHead" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jpBody" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="54" max="32767" attributes="0"/>
+              <EmptySpace pref="38" max="32767" attributes="0"/>
               <Component id="jpFooter" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
           </Group>
@@ -101,7 +101,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jlbDesc2" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
@@ -111,8 +111,8 @@
                           </Group>
                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jdcFechaFin" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="jdcFechaInicio" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="jdcFechaFin" min="-2" pref="400" max="-2" attributes="0"/>
+                              <Component id="jdcFechaInicio" min="-2" pref="400" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -120,14 +120,14 @@
                               <Component id="jlbEjemplar" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
                               <Component id="jlbLector" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="50" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jtEjemplar" max="32767" attributes="0"/>
-                              <Component id="jcbLector" pref="200" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jcbEjemplar" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
+                              <Component id="jcbLector" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="80" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="38" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -139,10 +139,10 @@
                       <Component id="jlbLector" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="jcbLector" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlbEjemplar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jtEjemplar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="jcbEjemplar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jlbDesc2" min="-2" max="-2" attributes="0"/>
@@ -156,7 +156,7 @@
                       <Component id="jlbFinPrestamo" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="jdcFechaFin" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="59" max="32767" attributes="0"/>
+                  <EmptySpace pref="69" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -193,11 +193,6 @@
             <Property name="text" type="java.lang.String" value="Ejemplar"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtEjemplar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value=" "/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jlbInicioPrestamo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -216,8 +211,28 @@
             <Property name="text" type="java.lang.String" value="Fin"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JComboBox" name="jcbEjemplar">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="14" style="1"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbEjemplarActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Ejemplar&gt;"/>
+          </AuxValues>
+        </Component>
         <Component class="javax.swing.JComboBox" name="jcbLector">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="14" style="1"/>
+            </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
@@ -227,7 +242,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbLectorActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Lector&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -239,13 +254,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jbNuevo" min="-2" pref="65" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                  <Component id="jbEliminar" min="-2" pref="65" max="-2" attributes="0"/>
+                  <Component id="jbNuevo" min="-2" pref="80" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                  <Component id="jbPrestar" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jbModificar" min="-2" pref="65" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                  <Component id="jbGuardar" min="-2" pref="65" max="-2" attributes="0"/>
+                  <Component id="jbDevolver" min="-2" pref="80" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                  <Component id="jbGuardar" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -256,8 +271,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jbGuardar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jbModificar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jbEliminar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="jbDevolver" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="jbPrestar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="jbNuevo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -269,28 +284,25 @@
         <Component class="javax.swing.JButton" name="jbNuevo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nuevo"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbNuevoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jbEliminar">
+        <Component class="javax.swing.JButton" name="jbPrestar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Eliminar"/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="Prestar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbEliminarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbPrestarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jbModificar">
+        <Component class="javax.swing.JButton" name="jbDevolver">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Modificar"/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="Devolver"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbModificarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbDevolverActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbGuardar">

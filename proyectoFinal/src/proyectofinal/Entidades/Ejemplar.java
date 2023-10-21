@@ -5,6 +5,7 @@ public class Ejemplar {
   private int idCodigo;
   private boolean estado;
   private long isbn;
+  private String nombreLibro;
   
   
   public Ejemplar(){}  
@@ -59,12 +60,23 @@ public class Ejemplar {
     public void setIsbn(long isbn) {
         this.isbn = isbn;
     }
+
+    public String getNombreLibro() {
+        return nombreLibro;
+    }
+
+    public void setNombreLibro(String nombreLibro) {
+        this.nombreLibro = nombreLibro;
+    }
      
 
-    
-    public void setNombreLibro(String nombreLibro) {
-        this.libro.setTitulo(nombreLibro);
+    public String getComboBoxDisplay() {
+    if (getIdCodigo() == -1) {
+        return "Seleccione un ejemplar";
+    } else {
+        return "N°: "+getIdCodigo() + " - " + getNombreLibro();
     }
+}
     
     @Override
     public String toString() {

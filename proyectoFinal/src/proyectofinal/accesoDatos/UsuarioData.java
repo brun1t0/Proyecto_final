@@ -100,4 +100,30 @@ public class UsuarioData {
             JOptionPane.showMessageDialog(null, "Error al eliminar usuario." + ex.getMessage());
         }
     }
+    
+     public List<Lector> listarLectores(){
+            ArrayList<Lector> lectores = new ArrayList<>();
+        try {
+            String sql ="SELECT * FROM usuario  WHERE estado = 1";
+            PreparedStatement ps =con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Lector lector = new Lector();
+                lector.setNroSocio(rs.getInt("idSocio"));
+                lector.setNombre(rs.getString("nombre"));
+                lector.setDomicilio(rs.getString("domicilio"));
+                lector.setMail(rs.getString("mail"));
+                lector.setEstado(rs.getBoolean("estado"));
+                lectores.add(lector);
+            }
+               ps.close();
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Lector"+ex.getMessage());
+        }
+        return lectores;
+        
+    }
+     
+     
+    
 }

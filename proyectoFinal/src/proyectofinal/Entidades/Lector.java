@@ -72,9 +72,23 @@ public class Lector {
         this.estado = estado;
     }
 
+    
+    public String getComboBoxDisplay() {
+    if (getNroSocio() == -1) {
+        return "Seleccione el lector";
+    } else {
+        return "ID: "+getNroSocio() + " - " + getNombre();
+    }
+}
+    
+
+    
     @Override
     public String toString() {
-        return "Socio: " + nroSocio + ", nombre: " + nombre + ", domicilio: " + domicilio + ", mail: " + mail + ", estado: " + estado;
+        return "ID: " + nroSocio + ", Nombre: " + nombre + ", Domicilio: " + domicilio + ", Mail: " + mail + ", Estado: " + estado;
     }
     
+    
+
+   
 }

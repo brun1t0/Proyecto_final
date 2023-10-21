@@ -26,3 +26,4 @@ replay_pid*
 /proyectoFinal/build/
 !/proyectoFinal/src/proyectofinal/Recursos/otros/jcalendar-1.4.jar
 !/proyectoFinal/src/proyectofinal/Recursos/otros/mariadb-java-client-3.2.0-funcional.jar
+/proyectoFinal/dist/
