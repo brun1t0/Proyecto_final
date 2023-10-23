@@ -104,15 +104,6 @@
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jlbDesc2" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jlbInicioPrestamo" min="-2" pref="83" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jdcFechaInicio" min="-2" pref="140" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jlbFinPrestamo" min="-2" pref="83" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jdcFechaFin" min="-2" pref="140" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jlbEjemplar" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
@@ -123,6 +114,15 @@
                               <Component id="jcbEjemplar" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
                               <Component id="jcbLector" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
                           </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jlbInicioPrestamo" min="-2" pref="83" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jdcFechaInicio" min="-2" pref="140" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jlbFinPrestamo" min="-2" pref="83" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jdcFechaFin" min="-2" pref="140" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="0" pref="38" max="32767" attributes="0"/>
@@ -243,6 +243,7 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jcbLectorItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbLectorActionPerformed"/>
           </Events>
           <AuxValues>
@@ -332,7 +333,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jbGuardar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Guardar"/>
+            <Property name="text" type="java.lang.String" value="Modificar"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>

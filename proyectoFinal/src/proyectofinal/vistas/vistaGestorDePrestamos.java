@@ -11,6 +11,8 @@ import java.util.TreeSet;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import proyectofinal.Entidades.Ejemplar;
@@ -111,21 +113,37 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
     }
 //Tabla
     private void armarCabecera() {
-        modeloTabla.addColumn("Codigo Ejemplar");
-        modeloTabla.addColumn("Titulo Libro");
-        modeloTabla.addColumn("Nro Socio");
-        modeloTabla.addColumn("Fecha Prestamo");
-        modeloTabla.addColumn("Fecha Finalizacion");
+        modeloTabla.addColumn("ID");
+        modeloTabla.addColumn("Titulo");
+        modeloTabla.addColumn("Fecha Inicio");
+        modeloTabla.addColumn("Fecha Fin");
+        modeloTabla.addColumn("Estado");
         jtConsultas.setModel(modeloTabla);
     }
 
 
-    private void cargarTabla(Prestamo prestamo) {
+    public void CargarPrestamos() {
+        try {
+            Lector lec = (Lector) jcbLector.getSelectedItem();
 
-        
+            for (Prestamo listaP : pData.buscarPrestamosPorLector(lec.getNroSocio())) {
 
+                Ejemplar id = listaP.getEjemplar();
+                String tit = listaP.getEjemplar().getNombreLibro();
+                Date inicio = listaP.getFechaInicio();
+                Date fin = listaP.getFechaFin();
+                Boolean estado = listaP.isEstado();
+
+                modeloTabla.addRow(new Object[]{id, tit, inicio, fin, estado});
+                
+            }
+        } catch (NullPointerException np) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Lector");
+
+        }
     }
 
+   
 
     private void borrarTabla() {
         modeloTabla.setRowCount(0);
@@ -226,6 +244,11 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
 
         jcbLector.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jcbLector.setToolTipText("");
+        jcbLector.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbLectorItemStateChanged(evt);
+            }
+        });
         jcbLector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbLectorActionPerformed(evt);
@@ -253,14 +276,6 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jpBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jlbDesc2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpBodyLayout.createSequentialGroup()
-                        .addComponent(jlbInicioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jlbFinPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpBodyLayout.createSequentialGroup()
                         .addGroup(jpBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlbEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,7 +283,15 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jpBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jcbEjemplar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbLector, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jcbLector, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpBodyLayout.createSequentialGroup()
+                        .addComponent(jlbInicioPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jlbFinPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 38, Short.MAX_VALUE))
             .addGroup(jpBodyLayout.createSequentialGroup()
                 .addContainerGap()
@@ -321,7 +344,7 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
             }
         });
 
-        jbGuardar.setText("Guardar");
+        jbGuardar.setText("Modificar");
         jbGuardar.setEnabled(false);
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -388,30 +411,42 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPrestarActionPerformed
-        int estado = 1;
+        Boolean estado = true;
         Date fechaInicio = jdcFechaInicio.getDate();
         Date fechaFin = jdcFechaFin.getDate();
         Lector lector = (Lector) jcbLector.getSelectedItem();
         Ejemplar ejemplar = (Ejemplar) jcbEjemplar.getSelectedItem();
 
         try {
-            Prestamo p = new Prestamo(fechaInicio, fechaFin, ejemplar, lector, isIcon);
+            Prestamo p = new Prestamo(fechaInicio, fechaFin, ejemplar, lector, estado);
             pData.crearPrestamo(p);
+        JOptionPane.showMessageDialog(this, "Prestamo realizado correctamente.");
+            CargarPrestamos();
         } catch (NullPointerException np) {
             JOptionPane.showMessageDialog(this, "No se ha podido crear el prestamo, intente nuevamente.");
         }
     }//GEN-LAST:event_jbPrestarActionPerformed
 
     private void jbDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDevolverActionPerformed
-        int estado = 0;
-        Date fechaInicio = jdcFechaInicio.getDate();
-        Date fechaFin = jdcFechaFin.getDate();
+        int filaSeleccionada = jtConsultas.getSelectedRow();
+        Date fechaInicio = null;
+        Date fechaFin = null;
+        Ejemplar ejemplar = null;
         Lector lector = (Lector) jcbLector.getSelectedItem();
-        Ejemplar ejemplar = (Ejemplar) jcbEjemplar.getSelectedItem();
+        Boolean estado = false;
+
+        if (filaSeleccionada != -1) {
+            fechaInicio = (Date) jtConsultas.getValueAt(filaSeleccionada, 2);
+            fechaFin = (Date) jtConsultas.getValueAt(filaSeleccionada, 3);
+            ejemplar = (Ejemplar) jtConsultas.getValueAt(filaSeleccionada, 0);
+        }
 
         try {
-            Prestamo p = new Prestamo(fechaInicio, fechaFin, ejemplar, lector, isIcon);
+            Prestamo p = new Prestamo(fechaInicio, fechaFin, ejemplar, lector, estado);
             pData.finalizarPrestamo(p);
+            CargarPrestamos();
+            JOptionPane.showMessageDialog(this, "Devolución exitosa.");
+            
         } catch (NullPointerException np) {
             JOptionPane.showMessageDialog(this, "No se ha podido devolver el ejemplar, intente nuevamente.");
         }
@@ -428,6 +463,11 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
     private void jcbLectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbLectorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbLectorActionPerformed
+
+    private void jcbLectorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbLectorItemStateChanged
+        borrarTabla();
+        CargarPrestamos();        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbLectorItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
