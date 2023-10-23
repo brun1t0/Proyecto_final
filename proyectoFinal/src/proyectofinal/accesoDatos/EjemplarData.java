@@ -47,6 +47,26 @@ public class EjemplarData {
         return null;
     }
 
+    public void actualizarEjemplar(int idCodigo, Long nuevoISBN) {
+        try {
+            String sql = "UPDATE Ejemplar SET ISBN = ? WHERE IdCodigo = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setLong(1, nuevoISBN);
+            ps.setInt(2, idCodigo);
+
+            int filasActualizadas = ps.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                System.out.println("ISBN actualizado con éxito.");
+            } else {
+                System.out.println("No se pudo actualizar el ISBN.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error al actualizar el ISBN.");
+        }
+    }
+
     public List<Ejemplar> buscarEjemplarisbn(long isbn) {
 
         List<Ejemplar> ejemplares = new ArrayList<>();
@@ -86,25 +106,29 @@ public class EjemplarData {
     }
 
     public Ejemplar buscarEjemplarPorIdCodigo(int idCodigo, boolean estado) {
-        String sql = "SELECT idCodigo, estado, isbn FROM ejemplar WHERE idCodigo = "
-                + idCodigo + " AND estado = " + estado;
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                boolean estado1 = rs.getBoolean(2);
-                long isbn = rs.getLong(3);
-
-                Libro lib = ld.buscarLibroPorISBN(isbn);
-                Ejemplar ej = new Ejemplar(lib, idCodigo, estado1);
-                return ej;
-            }
-            ps.close();
-        } catch (SQLException e) {
-            System.err.println("Error al buscar ejemplares por idCodigo: " + e.getMessage());
+    String sql = "SELECT idCodigo, estado, isbn FROM ejemplar WHERE idCodigo = ? AND estado = ?";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idCodigo);
+        ps.setBoolean(2, estado);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            boolean estado1 = rs.getBoolean(2);
+            long isbn = rs.getLong(3);
+            Libro lib = ld.buscarLibroPorISBN(isbn);
+            Ejemplar ej = new Ejemplar(lib, idCodigo, estado1);
+            return ej;
+        } else {
+            String mensaje = "El ejemplar con el código " + idCodigo + " no existe. Por favor, ingrese un código válido.";
+            JOptionPane.showMessageDialog(null, mensaje, "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
         }
-        return null;
+        ps.close();
+    } catch (SQLException e) {
+        String errorMensaje = "Error al buscar ejemplares por idCodigo: " + e.getMessage();
+        JOptionPane.showMessageDialog(null, errorMensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
+    return null;
+}
 
     public List<Ejemplar> buscarEjemplarPorNombre(String nombreEjemplar) {
         List<Ejemplar> ejemplares = new ArrayList<>();
@@ -135,33 +159,33 @@ public class EjemplarData {
     }
 
     public List<Ejemplar> buscarEjemplarPorAutor(String autor) {
-    List<Ejemplar> ejemplares = new ArrayList<>();
-    try {
-        String sql = "SELECT ejemplar.idCodigo, ejemplar.estado, ejemplar.isbn, libro.titulo "
-                + "FROM ejemplar JOIN libro ON (ejemplar.isbn = libro.isbn) "
-                + "WHERE libro.autor LIKE ?";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, "%" + autor + "%");
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            int idCodigo = rs.getInt("idCodigo");
-            boolean estado = rs.getBoolean("estado");
-            long isbnResult = rs.getLong("isbn");
-            Libro libro = ld.buscarLibroPorISBN(isbnResult);
-            Ejemplar ejemplar = new Ejemplar(libro, idCodigo, estado, isbnResult);
-            ejemplares.add(ejemplar);
-            System.out.println("Título del libro: " + libro.getTitulo());
+        List<Ejemplar> ejemplares = new ArrayList<>();
+        try {
+            String sql = "SELECT ejemplar.idCodigo, ejemplar.estado, ejemplar.isbn, libro.titulo "
+                    + "FROM ejemplar JOIN libro ON (ejemplar.isbn = libro.isbn) "
+                    + "WHERE libro.autor LIKE ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + autor + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int idCodigo = rs.getInt("idCodigo");
+                boolean estado = rs.getBoolean("estado");
+                long isbnResult = rs.getLong("isbn");
+                Libro libro = ld.buscarLibroPorISBN(isbnResult);
+                Ejemplar ejemplar = new Ejemplar(libro, idCodigo, estado, isbnResult);
+                ejemplares.add(ejemplar);
+                System.out.println("Título del libro: " + libro.getTitulo());
+            }
+            if (ejemplares.isEmpty()) {
+                System.out.println("No se encontraron ejemplares para el autor: " + autor);
+            }
+            ps.close();
+        } catch (SQLException e) {
+            System.err.println("Error al buscar ejemplares: " + e.getMessage());
         }
-        if (ejemplares.isEmpty()) {
-            System.out.println("No se encontraron ejemplares para el autor: " + autor);
-        }
-        ps.close();
-    } catch (SQLException e) {
-        System.err.println("Error al buscar ejemplares: " + e.getMessage());
+        return ejemplares;
     }
-    return ejemplares;
-}
-    
+
     public int listarCantidadDeEjemplaresDisponibles() {
         List<Ejemplar> ejemplares = new ArrayList<>();
         int cantidadLibrosDisponibles = 0;
@@ -219,23 +243,20 @@ public class EjemplarData {
         return ejemplares;
     }
 
-    public void modificarEstadoEjemplar(long isbn, boolean nuevoEstado) {
+    public void eliminarEjemplar(int idCodigo) {
         try {
-            String sql = "UPDATE ejemplar SET estado = ? WHERE isbn = ?";
+            String sql = "UPDATE ejemplar SET estado = 0 WHERE idCodigo = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setBoolean(1, nuevoEstado);
-            ps.setLong(2, isbn);
-
+            ps.setInt(1, idCodigo);
             int rowsUpdated = ps.executeUpdate();
-
             if (rowsUpdated > 0) {
-                System.out.println("El estado del ejemplar con ISBN " + isbn + " ha sido modificado.");
+                System.out.println("El ejemplar con idCodigo " + idCodigo + " ha sido eliminado.");
             } else {
-                System.out.println("No se pudo modificar el estado del ejemplar con ISBN " + isbn);
+                System.out.println("No se pudo eliminar el ejemplar con idCodigo " + idCodigo);
             }
             ps.close();
         } catch (SQLException e) {
-            System.err.println("Error al modificar el estado del ejemplar: " + e.getMessage());
+            System.err.println("Error al desactivar el ejemplar: " + e.getMessage());
         }
     }
 
@@ -272,4 +293,54 @@ public class EjemplarData {
 
     }
 
+    public boolean verificarExistenciaISBN(long isbn) {
+        try {
+            String sql = "SELECT COUNT(*) FROM ejemplar WHERE ISBN = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setLong(1, isbn);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Ejemplar obtenerEjemplarPorISBN(long isbn) {
+        try {
+            String sql = "SELECT ejemplar.idCodigo, ejemplar.estado, ejemplar.isbn, libro.autor, libro.titulo, libro.anio, libro.tipo, libro.editorial "
+                    + "FROM ejemplar "
+                    + "JOIN libro ON ejemplar.isbn = libro.isbn "
+                    + "WHERE ejemplar.isbn = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setLong(1, isbn);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int idCodigo = rs.getInt("idCodigo");
+                boolean estado = rs.getBoolean("estado");
+                String autor = rs.getString("autor");
+                String titulo = rs.getString("titulo");
+                int año = rs.getInt("anio");
+                String tipo = rs.getString("tipo");
+                String editorial = rs.getString("editorial");
+
+                Libro libro = new Libro(isbn, titulo, año, tipo, editorial, estado, autor);
+                Ejemplar ejemplar = new Ejemplar(libro, idCodigo, estado, isbn);
+                return ejemplar;
+            } else {
+                System.out.println("No se encontró el ejemplar para el ISBN: " + isbn);
+            }
+
+            ps.close();
+        } catch (SQLException e) {
+            System.err.println("Error al obtener el ejemplar por ISBN: " + e.getMessage());
+        }
+
+        return null;
+    }
 }

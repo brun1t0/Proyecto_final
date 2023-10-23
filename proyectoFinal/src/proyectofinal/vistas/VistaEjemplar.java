@@ -1,5 +1,8 @@
 package proyectofinal.vistas;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -90,20 +93,17 @@ public class VistaEjemplar extends javax.swing.JInternalFrame {
 
         jtTablaEjemplares.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "IdCodigo", "ISBN", "Autor", "Título", "Año", "Tipo", "Editorial", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.Integer.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, true, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -249,97 +249,96 @@ public class VistaEjemplar extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
-boolean estado = true;
-    int indiceSeleccionado = jCBTipoBusqueda.getSelectedIndex();
-    String valorBusqueda = jTFBuscar.getText();
-    DefaultTableModel model = (DefaultTableModel) jtTablaEjemplares.getModel();
-    model.setRowCount(0);
-    jTFBuscar.setText("");
-    if (indiceSeleccionado == 0) {
-        try {
-            int idCodigo = Integer.parseInt(valorBusqueda);
-            Ejemplar ejemplar = ed.buscarEjemplarPorIdCodigo(idCodigo, estado);
-            if (ejemplar != null) {
-                //DefaultTableModel model = (DefaultTableModel) jtTablaEjemplares.getModel();
-                model.addRow(new Object[]{
-                    ejemplar.getIdCodigo(),
-                    ejemplar.getLibro().getIsbn(),
-                    ejemplar.getLibro().getAutor(),
-                    ejemplar.getLibro().getTitulo(),
-                    ejemplar.getLibro().getAnio(),
-                    ejemplar.getLibro().getTipo(),
-                    ejemplar.getLibro().getEditorial(),
-                    ejemplar.getEstado()
-                });
+        boolean estado = true;
+        int indiceSeleccionado = jCBTipoBusqueda.getSelectedIndex();
+        String valorBusqueda = jTFBuscar.getText();
+        DefaultTableModel model = (DefaultTableModel) jtTablaEjemplares.getModel();
+        model.setRowCount(0);
+        jTFBuscar.setText("");
+        if (indiceSeleccionado == 0) {
+            try {
+                int idCodigo = Integer.parseInt(valorBusqueda);
+                Ejemplar ejemplar = ed.buscarEjemplarPorIdCodigo(idCodigo, estado);
+                if (ejemplar != null) {
+                    model.addRow(new Object[]{
+                        ejemplar.getIdCodigo(),
+                        ejemplar.getLibro().getIsbn(),
+                        ejemplar.getLibro().getAutor(),
+                        ejemplar.getLibro().getTitulo(),
+                        ejemplar.getLibro().getAnio(),
+                        ejemplar.getLibro().getTipo(),
+                        ejemplar.getLibro().getEditorial(),
+                        ejemplar.getEstado()
+                    });
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido para la búsqueda por idcodigo.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Ingrese un valor numérico válido para la búsqueda por idcodigo.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }else if (indiceSeleccionado == 1) {
-    try {
-        long isbn = Long.parseLong(valorBusqueda);
-        List<Ejemplar> ejemplares = ed.buscarEjemplarisbn(isbn);
-        if (!ejemplares.isEmpty()) {
-            for (Ejemplar ejemplar : ejemplares) {
-                model.addRow(new Object[]{
-                    ejemplar.getIdCodigo(),
-                    ejemplar.getLibro().getIsbn(),
-                    ejemplar.getLibro().getAutor(),
-                    ejemplar.getLibro().getTitulo(),
-                    ejemplar.getLibro().getAnio(),
-                    ejemplar.getLibro().getTipo(),
-                    ejemplar.getLibro().getEditorial(),
-                    ejemplar.getEstado()
-                });
+        } else if (indiceSeleccionado == 1) {
+            try {
+                long isbn = Long.parseLong(valorBusqueda);
+                List<Ejemplar> ejemplares = ed.buscarEjemplarisbn(isbn);
+                if (!ejemplares.isEmpty()) {
+                    for (Ejemplar ejemplar : ejemplares) {
+                        model.addRow(new Object[]{
+                            ejemplar.getIdCodigo(),
+                            ejemplar.getLibro().getIsbn(),
+                            ejemplar.getLibro().getAutor(),
+                            ejemplar.getLibro().getTitulo(),
+                            ejemplar.getLibro().getAnio(),
+                            ejemplar.getLibro().getTipo(),
+                            ejemplar.getLibro().getEditorial(),
+                            ejemplar.getEstado()
+                        });
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontraron ejemplares con el ISBN proporcionado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Ingrese un valor numérico válido para la búsqueda por ISBN.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontraron ejemplares con el ISBN proporcionado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-        }
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(null, "Ingrese un valor numérico válido para la búsqueda por ISBN.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    } else if (indiceSeleccionado == 2) {
-    String nombreEjemplar = valorBusqueda;
-    List<Ejemplar> ejemplares = ed.buscarEjemplarPorNombre(nombreEjemplar);
+        } else if (indiceSeleccionado == 2) {
+            String nombreEjemplar = valorBusqueda;
+            List<Ejemplar> ejemplares = ed.buscarEjemplarPorNombre(nombreEjemplar);
 
-    if (!ejemplares.isEmpty()) {
-        for (Ejemplar ejemplar : ejemplares) {
-            model.addRow(new Object[]{
-                ejemplar.getIdCodigo(),
-                ejemplar.getLibro().getIsbn(),
-                ejemplar.getLibro().getAutor(),
-                ejemplar.getLibro().getTitulo(),
-                ejemplar.getLibro().getAnio(),
-                ejemplar.getLibro().getTipo(),
-                ejemplar.getLibro().getEditorial(),
-                ejemplar.getEstado()
-            });
-        }
-    } else {
-        JOptionPane.showMessageDialog(null, "No se encontraron ejemplares con el nombre proporcionado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-    }
+            if (!ejemplares.isEmpty()) {
+                for (Ejemplar ejemplar : ejemplares) {
+                    model.addRow(new Object[]{
+                        ejemplar.getIdCodigo(),
+                        ejemplar.getLibro().getIsbn(),
+                        ejemplar.getLibro().getAutor(),
+                        ejemplar.getLibro().getTitulo(),
+                        ejemplar.getLibro().getAnio(),
+                        ejemplar.getLibro().getTipo(),
+                        ejemplar.getLibro().getEditorial(),
+                        ejemplar.getEstado()
+                    });
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron ejemplares con el nombre proporcionado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            }
 
-}else if (indiceSeleccionado == 3) {
-    String autorEjemplar = valorBusqueda;
-    List<Ejemplar> ejemplares = ed.buscarEjemplarPorAutor(autorEjemplar);
+        } else if (indiceSeleccionado == 3) {
+            String autorEjemplar = valorBusqueda;
+            List<Ejemplar> ejemplares = ed.buscarEjemplarPorAutor(autorEjemplar);
 
-    if (!ejemplares.isEmpty()) {
-        for (Ejemplar ejemplar : ejemplares) {
-            model.addRow(new Object[]{
-                ejemplar.getIdCodigo(),
-                ejemplar.getLibro().getIsbn(),
-                ejemplar.getLibro().getAutor(),
-                ejemplar.getLibro().getTitulo(),
-                ejemplar.getLibro().getAnio(),
-                ejemplar.getLibro().getTipo(),
-                ejemplar.getLibro().getEditorial(),
-                ejemplar.getEstado()
-            });
+            if (!ejemplares.isEmpty()) {
+                for (Ejemplar ejemplar : ejemplares) {
+                    model.addRow(new Object[]{
+                        ejemplar.getIdCodigo(),
+                        ejemplar.getLibro().getIsbn(),
+                        ejemplar.getLibro().getAutor(),
+                        ejemplar.getLibro().getTitulo(),
+                        ejemplar.getLibro().getAnio(),
+                        ejemplar.getLibro().getTipo(),
+                        ejemplar.getLibro().getEditorial(),
+                        ejemplar.getEstado()
+                    });
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron ejemplares con el autor proporcionado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
-    } else {
-        JOptionPane.showMessageDialog(null, "No se encontraron ejemplares con el autor proporcionado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-    }
-}
     }//GEN-LAST:event_jBuscarActionPerformed
 
     private void jBnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBnuevoActionPerformed
@@ -347,12 +346,22 @@ boolean estado = true;
     }//GEN-LAST:event_jBnuevoActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
-
+        int selectedRow = jtTablaEjemplares.getSelectedRow();
+        if (selectedRow != -1) {
+            int idCodigo = (int) jtTablaEjemplares.getValueAt(selectedRow, 0);
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro de Eliminar este ejemplar?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                ed.eliminarEjemplar(idCodigo);
+                JOptionPane.showMessageDialog(this, "Ejemplar Eliminado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un ejemplar a Eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
         String isbn = jTFisbn.getText().trim();
-        boolean estado = true; //jRBestado.isSelected();
+        boolean estado = true;
         try {
             Long.parseLong(isbn);
             String idCodigo = ed.guardarEjemplar(isbn, estado);
@@ -389,7 +398,32 @@ boolean estado = true;
     }//GEN-LAST:event_jTFisbnActionPerformed
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jtTablaEjemplares.getSelectedRow();
+        if (selectedRow != -1) {
+            int idCodigo = (int) jtTablaEjemplares.getValueAt(selectedRow, 0);
+            Long newIsbn = Long.parseLong(JOptionPane.showInputDialog(this,
+                    "Ingrese el nuevo ISBN:", "Modificar ISBN", JOptionPane.QUESTION_MESSAGE));
+            if (newIsbn != null) {
+                boolean isbnExists = ed.verificarExistenciaISBN(newIsbn);
+                if (isbnExists) {
+                    int confirm = JOptionPane.showConfirmDialog(this,
+                            "¿Está seguro de modificar el ISBN?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        ed.actualizarEjemplar(idCodigo, newIsbn);
+                        JOptionPane.showMessageDialog(this,
+                                "ISBN modificado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "El nuevo ISBN no existe en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El nuevo ISBN ingresado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione una fila de la tabla para realizar la modificación.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jCBTipoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBTipoBusquedaActionPerformed
