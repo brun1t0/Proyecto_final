@@ -51,6 +51,7 @@ private LibroData ld = new LibroData();
         bEliminar = new javax.swing.JButton();
         bNuevo = new javax.swing.JButton();
         bBuscar = new javax.swing.JButton();
+        bSalir = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Wide Latin", 0, 24)); // NOI18N
         jLabel1.setText("Gestor de libros");
@@ -101,6 +102,13 @@ private LibroData ld = new LibroData();
         bBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bBuscarActionPerformed(evt);
+            }
+        });
+
+        bSalir.setText("Salir");
+        bSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSalirActionPerformed(evt);
             }
         });
 
@@ -155,7 +163,9 @@ private LibroData ld = new LibroData();
                 .addComponent(bModificar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bGuardar)
-                .addGap(215, 215, 215))
+                .addGap(90, 90, 90)
+                .addComponent(bSalir)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +206,8 @@ private LibroData ld = new LibroData();
                     .addComponent(bGuardar)
                     .addComponent(bModificar)
                     .addComponent(bEliminar)
-                    .addComponent(bNuevo))
+                    .addComponent(bNuevo)
+                    .addComponent(bSalir))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -376,6 +387,10 @@ private LibroData ld = new LibroData();
         rbEstado.setSelected(false);
     }//GEN-LAST:event_bNuevoActionPerformed
 
+    private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBuscar;
@@ -383,6 +398,7 @@ private LibroData ld = new LibroData();
     private javax.swing.JButton bGuardar;
     private javax.swing.JButton bModificar;
     private javax.swing.JButton bNuevo;
+    private javax.swing.JButton bSalir;
     private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
