@@ -207,6 +207,45 @@ public class PrestamoData {
 
     }
 
+    public List<Lector> obtenerLectoresConPrestamosVencidos() {
+        try {
+            List<Lector> lectoresConPrestamosVencidos = new ArrayList<>();
+
+            
+            LocalDate fechaActual = LocalDate.now();
+
+            
+            String sql = "SELECT usuario.idSocio, usuario.nombre, usuario.domicilio, usuario.mail, usuario.estado FROM Prestamo "
+                    + "JOIN usuario ON (Prestamo.idSocio = usuario.idSocio) "
+                    + "WHERE Prestamo.estado = 1 AND Prestamo.fechaFin < ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, java.sql.Date.valueOf(fechaActual)); 
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Lector lector = new Lector(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5));
+                lectoresConPrestamosVencidos.add(lector);
+            }
+
+            return lectoresConPrestamosVencidos;
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    public List<Object[]> obtenerLectoresConPrestamosPorVencer() {
+    
+        return null;
+    
+}
+
+
+
+
     public Ejemplar obtenerLibrosPrestadosEnUnaFechaPredeterminada(LocalDate fecha) {
 
         return null;
