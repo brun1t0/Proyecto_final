@@ -39,6 +39,12 @@ public class menu_principal extends javax.swing.JFrame {
         mGestorPrestamos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        mCantidadEjemplares = new javax.swing.JMenuItem();
+        mPrestamosVencidos = new javax.swing.JMenuItem();
+        mLibrosXAutor = new javax.swing.JMenuItem();
+        mConsultaPorPrestamos = new javax.swing.JMenuItem();
+        mLibrosPrestadosXFecha = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,6 +103,25 @@ public class menu_principal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Consultas");
+
+        mCantidadEjemplares.setText("Consultar cantidad de ejemplares de un libro");
+        jMenu3.add(mCantidadEjemplares);
+
+        mPrestamosVencidos.setText("Consultar lectores con prestamos vencidos");
+        jMenu3.add(mPrestamosVencidos);
+
+        mLibrosXAutor.setText("Consultar libros de un autor específico");
+        jMenu3.add(mLibrosXAutor);
+
+        mConsultaPorPrestamos.setText("Consultar lectores y libros de todos los prestamos");
+        jMenu3.add(mConsultaPorPrestamos);
+
+        mLibrosPrestadosXFecha.setText("Consultar libros prestados por fecha");
+        jMenu3.add(mLibrosPrestadosXFecha);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -197,10 +222,16 @@ public class menu_principal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem mCantidadEjemplares;
+    private javax.swing.JMenuItem mConsultaPorPrestamos;
     private javax.swing.JMenuItem mGestorLibros;
     private javax.swing.JMenuItem mGestorPrestamos;
+    private javax.swing.JMenuItem mLibrosPrestadosXFecha;
+    private javax.swing.JMenuItem mLibrosXAutor;
+    private javax.swing.JMenuItem mPrestamosVencidos;
     // End of variables declaration//GEN-END:variables
 }

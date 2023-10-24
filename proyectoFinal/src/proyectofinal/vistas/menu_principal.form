@@ -53,6 +53,38 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Consultas"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mCantidadEjemplares">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consultar cantidad de ejemplares de un libro"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mPrestamosVencidos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consultar lectores con prestamos vencidos"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mLibrosXAutor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consultar libros de un autor espec&#xed;fico"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mConsultaPorPrestamos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consultar lectores y libros de todos los prestamos"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mLibrosPrestadosXFecha">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consultar libros prestados por fecha"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>

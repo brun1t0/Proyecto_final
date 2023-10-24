@@ -85,7 +85,7 @@ public class EjemplarData {
                 int idCodigo = rs.getInt("idCodigo");
                 boolean estado = rs.getBoolean("estado");
                 long isbnResult = rs.getLong("isbn");
-
+                
                 Libro libro = ld.buscarLibroPorISBN(isbnResult);
 
                 if (libro != null) {
