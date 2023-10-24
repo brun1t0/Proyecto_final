@@ -24,10 +24,13 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import proyectofinal.Entidades.Ejemplar;
 import proyectofinal.Entidades.Lector;
+import proyectofinal.Entidades.Libro;
 import proyectofinal.Entidades.Prestamo;
 import proyectofinal.accesoDatos.EjemplarData;
+import proyectofinal.accesoDatos.LibroData;
 import proyectofinal.accesoDatos.PrestamoData;
 import proyectofinal.accesoDatos.UsuarioData;
 
@@ -40,6 +43,7 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
     private UsuarioData lData = new UsuarioData();
     private EjemplarData eData = new EjemplarData();
     private PrestamoData pData = new PrestamoData();
+    private LibroData liData = new LibroData();
     DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -162,9 +166,14 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
         modeloTabla.addColumn("Titulo");
         modeloTabla.addColumn("Fecha Inicio");
         modeloTabla.addColumn("Fecha Fin");
-        modeloTabla.addColumn("Estado");
 
         jtConsultas.setModel(modeloTabla);
+        TableColumnModel columnModel = jtConsultas.getColumnModel();
+        
+        columnModel.getColumn(0).setPreferredWidth(50);  
+        columnModel.getColumn(1).setPreferredWidth(300); 
+        columnModel.getColumn(2).setPreferredWidth(100); 
+        columnModel.getColumn(3).setPreferredWidth(100); 
     }
 
     public void CargarPrestamos() {
@@ -173,11 +182,13 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
 
             for (Prestamo listaP : pData.buscarPrestamosPorLector(lec.getNroSocio())) {
 
-                Ejemplar id = listaP.getEjemplar();
-                String tit = listaP.getEjemplar().getNombreLibro();
+                int id = listaP.getEjemplar().getIdCodigo();
+                String tit = listaP.getEjemplar().getLibro().getTitulo();
                 Date inicio = listaP.getFechaInicio();
                 Date fin = listaP.getFechaFin();
                 Boolean estado = listaP.isEstado();
+                
+                System.out.println("titulo "+listaP.getEjemplar().getLibro().getTitulo());
 
                 modeloTabla.addRow(new Object[]{id, tit, inicio, fin, estado});
 
@@ -521,7 +532,8 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
         if (filaSeleccionada != -1) {
             fechaInicio = (Date) jtConsultas.getValueAt(filaSeleccionada, 2);
             fechaFin = (Date) jtConsultas.getValueAt(filaSeleccionada, 3);
-            ejemplar = (Ejemplar) jtConsultas.getValueAt(filaSeleccionada, 0);
+            int id = Integer.parseInt( jtConsultas.getValueAt(filaSeleccionada, 0).toString());
+            ejemplar = eData.buscarEjemplarPorIdCodigo(id, false);
         }
 
         try {
@@ -545,7 +557,9 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
         if (selectedRow >= 0) {
             Date nuevaFecha = jdcNuevaFecha.getDate();
             if (nuevaFecha != null) {
-                Ejemplar ejemplar = (Ejemplar) jtConsultas.getValueAt(selectedRow, 0);
+                int filaSeleccionada = jtConsultas.getSelectedRow();
+                int id = Integer.parseInt( jtConsultas.getValueAt(filaSeleccionada, 0).toString());
+                Ejemplar ejemplar = eData.buscarEjemplarPorIdCodigo(id, false);
                 Lector lector = (Lector) jcbLector.getSelectedItem();
                 int idSocio = lector.getNroSocio();
                 int idCodigo = ejemplar.getIdCodigo();
