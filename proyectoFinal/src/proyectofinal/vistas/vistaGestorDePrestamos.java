@@ -5,6 +5,11 @@
 package proyectofinal.vistas;
 
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
@@ -12,6 +17,10 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -31,10 +40,13 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
     private UsuarioData lData = new UsuarioData();
     private EjemplarData eData = new EjemplarData();
     private PrestamoData pData = new PrestamoData();
-    private DefaultTableModel modeloTabla = new DefaultTableModel() {
-        public boolean isCellEditable(int f, int c) {
+    DefaultTableModel modeloTabla = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            // Solo permite la edición de la cuarta columna (índice 3)
             return false;
         }
+
     };
 
     public vistaGestorDePrestamos() {
@@ -46,11 +58,43 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
         llenarCboLector();
         llenarCboEjemplar();
         armarCabecera();
+          jtConsultas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int selectedRow = jtConsultas.getSelectedRow();
+                jdcNuevaFecha.setEnabled(selectedRow >= 0);
+
+                // Deshabilita todos los botones excepto jbDevolver y jbModificar
+                
+                jbModificar.setEnabled(selectedRow >= 0); // Habilita jbModificar solo si se selecciona una fila
+                jbDevolver.setEnabled(selectedRow >= 0);  // Habilita jbModificar solo si se selecciona una fila
+                
+            }
+        });
+
+        jdcNuevaFecha.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("date".equals(evt.getPropertyName())) {
+                    int selectedRow = jtConsultas.getSelectedRow();
+                    if (selectedRow >= 0) {
+                        Date nuevaFecha = (Date) evt.getNewValue();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Establece aquí el formato original
+                        String nuevaFechaFormateada = dateFormat.format(nuevaFecha);
+                        jtConsultas.setValueAt(nuevaFechaFormateada, selectedRow, 3); // Actualizar la fecha de finalización en la tabla
+                        jbModificar.setEnabled(true); // Habilitar el botón al editar la fecha
+                    }
+                }
+            }
+        });
+
+        
+        
         
     }
+        
 
 //Metodos 
-
     public void llenarCboLector() {
         List<Lector> lectores = lData.listarLectores();
 
@@ -64,16 +108,15 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
             jcbLector.addItem(lector);
         }
     }
-    
+
     public void llenarCboEjemplar() {
         List<Ejemplar> ejemplares = eData.listarEjemplares();
-        
-        
+
         Ejemplar ejemplarPredeterminado = new Ejemplar();
         ejemplarPredeterminado.setIdCodigo(-1);
         ejemplarPredeterminado.setNombreLibro("Seleccione un ejemplar");
         jcbEjemplar.addItem(ejemplarPredeterminado);
-        
+
         for (Ejemplar listarEjemplares : eData.listarEjemplares()) {
             jcbEjemplar.addItem(listarEjemplares);
         }
@@ -112,15 +155,17 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
         jdcFechaFin.setDate(null);
     }
 //Tabla
+
     private void armarCabecera() {
+        // Añade tus columnas a la tabla
         modeloTabla.addColumn("ID");
         modeloTabla.addColumn("Titulo");
         modeloTabla.addColumn("Fecha Inicio");
         modeloTabla.addColumn("Fecha Fin");
         modeloTabla.addColumn("Estado");
+
         jtConsultas.setModel(modeloTabla);
     }
-
 
     public void CargarPrestamos() {
         try {
@@ -135,7 +180,7 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
                 Boolean estado = listaP.isEstado();
 
                 modeloTabla.addRow(new Object[]{id, tit, inicio, fin, estado});
-                
+
             }
         } catch (NullPointerException np) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un Lector");
@@ -143,15 +188,11 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
         }
     }
 
-   
-
     private void borrarTabla() {
         modeloTabla.setRowCount(0);
     }
 
-   
-
-    
+    private boolean clicFueraDeTabla = true;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,7 +222,9 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
         jbNuevo = new javax.swing.JButton();
         jbPrestar = new javax.swing.JButton();
         jbDevolver = new javax.swing.JButton();
-        jbGuardar = new javax.swing.JButton();
+        jbModificar = new javax.swing.JButton();
+        jdcNuevaFecha = new com.toedter.calendar.JDateChooser();
+        jbSalir = new javax.swing.JButton();
 
         jlbTitulo.setFont(new java.awt.Font("Candara", 1, 36)); // NOI18N
         jlbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -338,17 +381,27 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
         });
 
         jbDevolver.setText("Devolver");
+        jbDevolver.setEnabled(false);
         jbDevolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbDevolverActionPerformed(evt);
             }
         });
 
-        jbGuardar.setText("Modificar");
-        jbGuardar.setEnabled(false);
-        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+        jbModificar.setText("Modificar Fecha");
+        jbModificar.setEnabled(false);
+        jbModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbGuardarActionPerformed(evt);
+                jbModificarActionPerformed(evt);
+            }
+        });
+
+        jdcNuevaFecha.setEnabled(false);
+
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
             }
         });
 
@@ -359,24 +412,31 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
             .addGroup(jpFooterLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94)
+                .addGap(45, 45, 45)
                 .addComponent(jbPrestar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(60, 60, 60)
                 .addComponent(jbDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
-                .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(51, 51, 51)
+                .addComponent(jbModificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jdcNuevaFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpFooterLayout.setVerticalGroup(
             jpFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpFooterLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbPrestar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jpFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdcNuevaFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbPrestar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -385,11 +445,13 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpHead, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jpBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpFooter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addGap(105, 105, 105)
+                .addComponent(jpBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpFooter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,19 +473,40 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPrestarActionPerformed
-        Boolean estado = true;
         Date fechaInicio = jdcFechaInicio.getDate();
         Date fechaFin = jdcFechaFin.getDate();
+
+        if (fechaInicio != null && fechaFin != null) {
+            if (fechaInicio.after(fechaFin)) {
+                JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha de fin.");
+                return; // Salir del método si las fechas son incorrectas
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione fechas válidas.");
+            return; // Salir del método si falta una fecha
+        }
+
         Lector lector = (Lector) jcbLector.getSelectedItem();
         Ejemplar ejemplar = (Ejemplar) jcbEjemplar.getSelectedItem();
+
+        Boolean estado = true;
 
         try {
             Prestamo p = new Prestamo(fechaInicio, fechaFin, ejemplar, lector, estado);
             pData.crearPrestamo(p);
-        JOptionPane.showMessageDialog(this, "Prestamo realizado correctamente.");
-            CargarPrestamos();
+
+            // Calcula la diferencia en días entre fechaInicio y fechaFin
+            long diferenciaEnMillis = fechaFin.getTime() - fechaInicio.getTime();
+            int diasDePrestamo = (int) (diferenciaEnMillis / (24 * 60 * 60 * 1000));
+
+            JOptionPane.showMessageDialog(this, "Prestamo realizado correctamente. Duración: " + diasDePrestamo + " días.");
+
+            borrarTabla();
+            jcbEjemplar.removeAllItems();
+            CargarPrestamos(); // Actualiza la tabla
+            llenarCboEjemplar(); // Actualiza ComboBox de Ejemplares
         } catch (NullPointerException np) {
-            JOptionPane.showMessageDialog(this, "No se ha podido crear el prestamo, intente nuevamente.");
+            JOptionPane.showMessageDialog(this, "No se ha podido crear el préstamo, intente nuevamente.");
         }
     }//GEN-LAST:event_jbPrestarActionPerformed
 
@@ -444,17 +527,43 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
         try {
             Prestamo p = new Prestamo(fechaInicio, fechaFin, ejemplar, lector, estado);
             pData.finalizarPrestamo(p);
-            CargarPrestamos();
+
             JOptionPane.showMessageDialog(this, "Devolución exitosa.");
-            
+
+            borrarTabla();
+            jcbEjemplar.removeAllItems();
+            CargarPrestamos(); // Actualiza la tabla
+            llenarCboEjemplar(); // Actualiza ComboBox de Ejemplares
         } catch (NullPointerException np) {
             JOptionPane.showMessageDialog(this, "No se ha podido devolver el ejemplar, intente nuevamente.");
         }
     }//GEN-LAST:event_jbDevolverActionPerformed
 
-    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+        int selectedRow = jtConsultas.getSelectedRow();
 
-    }//GEN-LAST:event_jbGuardarActionPerformed
+        if (selectedRow >= 0) {
+            Date nuevaFecha = jdcNuevaFecha.getDate();
+            if (nuevaFecha != null) {
+                Ejemplar ejemplar = (Ejemplar) jtConsultas.getValueAt(selectedRow, 0);
+                Lector lector = (Lector) jcbLector.getSelectedItem();
+                int idSocio = lector.getNroSocio();
+                int idCodigo = ejemplar.getIdCodigo();
+                Date fechaInicio = (Date) jtConsultas.getValueAt(selectedRow, 2);
+
+                pData.modificarPrestamo(idSocio, idCodigo, fechaInicio, nuevaFecha);
+                JOptionPane.showMessageDialog(this, "Prestamo modificado exitosamente.");
+                jbModificar.setEnabled(false);
+                borrarTabla();
+                CargarPrestamos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleccione una fecha válida.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila para modificar.");
+        }
+
+    }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jcbEjemplarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEjemplarActionPerformed
         // TODO add your handling code here:
@@ -466,20 +575,28 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
 
     private void jcbLectorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbLectorItemStateChanged
         borrarTabla();
-        CargarPrestamos();        // TODO add your handling code here:
+        CargarPrestamos();
+        jdcFechaInicio.setDate(null);
+        jdcFechaFin.setDate(null);
     }//GEN-LAST:event_jcbLectorItemStateChanged
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbDevolver;
-    private javax.swing.JButton jbGuardar;
+    private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbPrestar;
+    private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Ejemplar> jcbEjemplar;
     private javax.swing.JComboBox<Lector> jcbLector;
     private com.toedter.calendar.JDateChooser jdcFechaFin;
     private com.toedter.calendar.JDateChooser jdcFechaInicio;
+    private com.toedter.calendar.JDateChooser jdcNuevaFecha;
     private javax.swing.JLabel jlbDesc1;
     private javax.swing.JLabel jlbDesc2;
     private javax.swing.JLabel jlbEjemplar;
