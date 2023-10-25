@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import proyectofinal.Entidades.Lector;
@@ -32,14 +33,19 @@ public class vistaLectoresConPrestamosVencidos extends javax.swing.JInternalFram
     
     public vistaLectoresConPrestamosVencidos() {
         initComponents();
+        armarCabecera();
         this.setSize(800, 600);
         this.setTitle("Consulta de Lectores con Prestamos Vencidos");
         this.setResizable(false);
+        
+        
+
         jrbVencidos.addItemListener(new ItemListener() {
-    @Override
+            @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
             jrbPorVencer.setSelected(false); 
+            borrarTabla();
             cargarLectoresConPrestamosVencidos();
         }
     }
@@ -50,6 +56,7 @@ jrbPorVencer.addItemListener(new ItemListener() {
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
             jrbVencidos.setSelected(false); 
+            borrarTabla();
             cargarLectoresConPrestamosPorVencer();
         }
     }
@@ -69,19 +76,22 @@ jrbPorVencer.addItemListener(new ItemListener() {
 //Tabla
 
     private void armarCabecera() {
-        
+        borrarTabla();
         modeloTabla.addColumn("ID");
-        modeloTabla.addColumn("Titulo");
-        modeloTabla.addColumn("Fecha Inicio");
-        modeloTabla.addColumn("Fecha Fin");
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Domicilio");
+        modeloTabla.addColumn("Email");
+        modeloTabla.addColumn("Vencimiento");
+        
 
         jtConsultas.setModel(modeloTabla);
         TableColumnModel columnModel = jtConsultas.getColumnModel();
         
-        columnModel.getColumn(0).setPreferredWidth(50);  
-        columnModel.getColumn(1).setPreferredWidth(300); 
-        columnModel.getColumn(2).setPreferredWidth(100); 
-        columnModel.getColumn(3).setPreferredWidth(100); 
+        columnModel.getColumn(0).setPreferredWidth(15);  
+        columnModel.getColumn(1).setPreferredWidth(60); 
+        columnModel.getColumn(2).setPreferredWidth(60); 
+        columnModel.getColumn(3).setPreferredWidth(100);
+        columnModel.getColumn(4).setPreferredWidth(70); 
     }
 
     
@@ -90,32 +100,44 @@ jrbPorVencer.addItemListener(new ItemListener() {
         modeloTabla.setRowCount(0);
     }
     
-    private void cargarLectoresConPrestamosVencidos() {
-    List<Lector> lectoresV = pData.obtenerLectoresConPrestamosVencidos();
+    public void cargarLectoresConPrestamosVencidos() {
+    List<Map<String, Object>> lectoresVencidos = pData.obtenerLectoresConPrestamosVencidos();
     borrarTabla();
 
-    for (Lector lector : lectoresV) {
+    for (Map<String, Object> data : lectoresVencidos) {
         Object[] fila = {
-            lector.getNroSocio(), 
-            lector.getNombre(), 
-            lector.getDomicilio(), 
-            lector.getMail(), 
-            lector.isEstado()};
-        
+            data.get("idSocio"),
+            data.get("nombre"),
+            data.get("domicilio"),
+            data.get("mail"),
+            data.get("fechaFin")
+        };
+          System.out.println("Lectores con prestamos vencidos: "+lectoresVencidos);
         modeloTabla.addRow(fila);
     }
-    
-    
 }
+
+      
+    
+
     
     public void cargarLectoresConPrestamosPorVencer() {
-    List<Object[]> lectoresPorVencer = pData.obtenerLectoresConPrestamosPorVencer();
+    List<Map<String, Object>> lectoresProximosAVencer = pData.obtenerLectoresConPrestamosProximosAVencer();
     borrarTabla();
 
-    for (Object[] lectorData : lectoresPorVencer) {
-        modeloTabla.addRow(lectorData);
+    for (Map<String, Object> data : lectoresProximosAVencer) {
+        Object[] fila = {
+            data.get("idSocio"),
+            data.get("nombre"),
+            data.get("domicilio"),
+            data.get("mail"),
+            data.get("fechaFin")
+        };
+        System.out.println("Lectores con prestamos proximos a vencer: "+lectoresProximosAVencer);
+        modeloTabla.addRow(fila);
     }
 }
+
 
     
     
@@ -129,17 +151,13 @@ jrbPorVencer.addItemListener(new ItemListener() {
         jlbDesc1 = new javax.swing.JLabel();
         jpFooter = new javax.swing.JPanel();
         jbNuevo = new javax.swing.JButton();
-        jbPrestar = new javax.swing.JButton();
-        jbDevolver = new javax.swing.JButton();
-        jbModificar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
-        jdcNuevaFecha = new com.toedter.calendar.JDateChooser();
         jpBody = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtConsultas = new javax.swing.JTable();
         jrbVencidos = new javax.swing.JRadioButton();
         jrbPorVencer = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtConsultas = new javax.swing.JTable();
 
         jlbTitulo.setFont(new java.awt.Font("Candara", 1, 32)); // NOI18N
         jlbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -179,29 +197,6 @@ jrbPorVencer.addItemListener(new ItemListener() {
             }
         });
 
-        jbPrestar.setText("Prestar");
-        jbPrestar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbPrestarActionPerformed(evt);
-            }
-        });
-
-        jbDevolver.setText("Devolver");
-        jbDevolver.setEnabled(false);
-        jbDevolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbDevolverActionPerformed(evt);
-            }
-        });
-
-        jbModificar.setText("Modificar Fecha");
-        jbModificar.setEnabled(false);
-        jbModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbModificarActionPerformed(evt);
-            }
-        });
-
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,15 +211,7 @@ jrbPorVencer.addItemListener(new ItemListener() {
             .addGroup(jpFooterLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(jbPrestar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(jbDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(jbModificar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jdcNuevaFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addGap(500, 500, 500)
                 .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -232,18 +219,23 @@ jrbPorVencer.addItemListener(new ItemListener() {
             jpFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpFooterLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jdcNuevaFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jpFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jpFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbPrestar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(jpFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jrbVencidos.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
+        jrbVencidos.setText("Vencidos");
+
+        jrbPorVencer.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
+        jrbPorVencer.setText("Proximos a vencer");
+
+        jLabel1.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("PRESTAMOS");
+
+        jtConsultas.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
         jtConsultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -255,31 +247,24 @@ jrbPorVencer.addItemListener(new ItemListener() {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jtConsultas);
-
-        jrbVencidos.setText("Vencidos");
-
-        jrbPorVencer.setText("Proximos a vencer");
-
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setText("PRESTAMOS");
+        jScrollPane2.setViewportView(jtConsultas);
 
         javax.swing.GroupLayout jpBodyLayout = new javax.swing.GroupLayout(jpBody);
         jpBody.setLayout(jpBodyLayout);
         jpBodyLayout.setHorizontalGroup(
             jpBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpBodyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jpBodyLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBodyLayout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addComponent(jrbVencidos)
-                .addGap(61, 61, 61)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jrbPorVencer)
                 .addGap(70, 70, 70))
+            .addGroup(jpBodyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         jpBodyLayout.setVerticalGroup(
             jpBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,10 +273,10 @@ jrbPorVencer.addItemListener(new ItemListener() {
                 .addGroup(jpBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jrbVencidos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jrbPorVencer, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -299,24 +284,22 @@ jrbPorVencer.addItemListener(new ItemListener() {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpHead, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(jpFooter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jpBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(63, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jpFooter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpHead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jpFooter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addGap(44, 44, 44))
         );
 
         pack();
@@ -326,32 +309,16 @@ jrbPorVencer.addItemListener(new ItemListener() {
         
     }//GEN-LAST:event_jbNuevoActionPerformed
 
-    private void jbPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPrestarActionPerformed
-     
-    }//GEN-LAST:event_jbPrestarActionPerformed
-
-    private void jbDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDevolverActionPerformed
-      
-    }//GEN-LAST:event_jbDevolverActionPerformed
-
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
-    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-
-    }//GEN-LAST:event_jbModificarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbDevolver;
-    private javax.swing.JButton jbModificar;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbNuevo;
-    private javax.swing.JButton jbPrestar;
     private javax.swing.JButton jbSalir;
-    private com.toedter.calendar.JDateChooser jdcNuevaFecha;
     private javax.swing.JLabel jlbDesc1;
     private javax.swing.JLabel jlbTitulo;
     private javax.swing.JPanel jpBody;
