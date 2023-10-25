@@ -24,5 +24,5 @@ hs_err_pid*
 replay_pid*
 /proyectoFinal/nbproject/private/
 /proyectoFinal/build/
-!/proyectoFinal/src/proyectofinal/Recursos/otros/
+!/proyectoFinal/src/proyectofinal/Recursos/otros/*
 /proyectoFinal/dist/
