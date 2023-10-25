@@ -113,6 +113,11 @@ public class menu_principal extends javax.swing.JFrame {
         jMenu3.add(mPrestamosVencidos);
 
         mLibrosXAutor.setText("Consultar libros de un autor específico");
+        mLibrosXAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mLibrosXAutorActionPerformed(evt);
+            }
+        });
         jMenu3.add(mLibrosXAutor);
 
         mConsultaPorPrestamos.setText("Consultar lectores y libros de todos los prestamos");
@@ -182,6 +187,16 @@ public class menu_principal extends javax.swing.JFrame {
         escritorio.add(vgp);
         escritorio.moveToFront(vgp);
     }//GEN-LAST:event_mGestorPrestamosActionPerformed
+
+    private void mLibrosXAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mLibrosXAutorActionPerformed
+        VistaConsultarLibrosXAutor vla = new VistaConsultarLibrosXAutor();
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        vla.setVisible(true);
+        escritorio.add(vla);
+        escritorio.moveToFront(vla);
+    }//GEN-LAST:event_mLibrosXAutorActionPerformed
 
     /**
      * @param args the command line arguments
