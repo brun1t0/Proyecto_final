@@ -107,6 +107,11 @@ public class menu_principal extends javax.swing.JFrame {
         jMenu3.setText("Consultas");
 
         mCantidadEjemplares.setText("Consultar cantidad de ejemplares de un libro");
+        mCantidadEjemplares.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mCantidadEjemplaresActionPerformed(evt);
+            }
+        });
         jMenu3.add(mCantidadEjemplares);
 
         mPrestamosVencidos.setText("Consultar lectores con prestamos vencidos");
@@ -197,6 +202,16 @@ public class menu_principal extends javax.swing.JFrame {
         escritorio.add(vla);
         escritorio.moveToFront(vla);
     }//GEN-LAST:event_mLibrosXAutorActionPerformed
+
+    private void mCantidadEjemplaresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCantidadEjemplaresActionPerformed
+        v_ConsultarEjemplarLibro gp = new v_ConsultarEjemplarLibro();
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        gp.setVisible(true);
+        escritorio.add(gp);
+        escritorio.moveToFront(gp);
+    }//GEN-LAST:event_mCantidadEjemplaresActionPerformed
 
     /**
      * @param args the command line arguments
