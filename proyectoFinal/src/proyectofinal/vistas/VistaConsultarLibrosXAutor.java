@@ -16,7 +16,12 @@ import proyectofinal.accesoDatos.LibroData;
  * @author Usuario
  */
 public class VistaConsultarLibrosXAutor extends javax.swing.JInternalFrame {
-DefaultTableModel dtm = new DefaultTableModel();
+DefaultTableModel dtm = new DefaultTableModel(){
+    @Override
+    public boolean isCellEditable(int i, int i1) {
+        return false;
+    }
+};
 LibroData ld = new LibroData();
 
 
