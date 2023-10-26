@@ -140,9 +140,19 @@ public class menu_principal extends javax.swing.JFrame {
         jMenu3.add(mLibrosXAutor);
 
         mConsultaPorPrestamos.setText("Consultar lectores y libros de todos los prestamos");
+        mConsultaPorPrestamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mConsultaPorPrestamosActionPerformed(evt);
+            }
+        });
         jMenu3.add(mConsultaPorPrestamos);
 
         mLibrosPrestadosXFecha.setText("Consultar libros prestados por fecha");
+        mLibrosPrestadosXFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mLibrosPrestadosXFechaActionPerformed(evt);
+            }
+        });
         jMenu3.add(mLibrosPrestadosXFecha);
 
         jMenuBar1.add(jMenu3);
@@ -191,6 +201,14 @@ public class menu_principal extends javax.swing.JFrame {
         vistaLectoresConPrestamosVencidos vlcpv = new vistaLectoresConPrestamosVencidos();
         inicializarJInternalFrame(vlcpv, "Consulta de Prestamos");
     }//GEN-LAST:event_mPrestamosVencidosActionPerformed
+
+    private void mConsultaPorPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mConsultaPorPrestamosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mConsultaPorPrestamosActionPerformed
+
+    private void mLibrosPrestadosXFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mLibrosPrestadosXFechaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mLibrosPrestadosXFechaActionPerformed
 
     /**
      * @param args the command line arguments

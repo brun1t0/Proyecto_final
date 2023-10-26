@@ -5,29 +5,20 @@
 package proyectofinal.vistas;
 
 import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.TreeSet;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import proyectofinal.Entidades.Ejemplar;
 import proyectofinal.Entidades.Lector;
-import proyectofinal.Entidades.Libro;
 import proyectofinal.Entidades.Prestamo;
 import proyectofinal.accesoDatos.EjemplarData;
 import proyectofinal.accesoDatos.LibroData;
@@ -55,9 +46,6 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
 
     public vistaGestorDePrestamos() {
         initComponents();
-        this.setSize(800, 600);
-        this.setTitle("Gestor de Presamos");
-        this.setResizable(false);
         initComboBoxes();
         llenarCboLector();
         llenarCboEjemplar();
