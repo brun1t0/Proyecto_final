@@ -116,6 +116,11 @@ public class menu_principal extends javax.swing.JFrame {
         jMenu3.add(mLibrosXAutor);
 
         mConsultaPorPrestamos.setText("Consultar lectores y libros de todos los prestamos");
+        mConsultaPorPrestamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mConsultaPorPrestamosActionPerformed(evt);
+            }
+        });
         jMenu3.add(mConsultaPorPrestamos);
 
         mLibrosPrestadosXFecha.setText("Consultar libros prestados por fecha");
@@ -164,7 +169,7 @@ public class menu_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-         proyectoFinalVistaUsuario usuarioVista = new proyectoFinalVistaUsuario();
+        proyectoFinalVistaUsuario usuarioVista = new proyectoFinalVistaUsuario();
         escritorio.removeAll();
         escritorio.repaint();
         
@@ -182,6 +187,16 @@ public class menu_principal extends javax.swing.JFrame {
         escritorio.add(vgp);
         escritorio.moveToFront(vgp);
     }//GEN-LAST:event_mGestorPrestamosActionPerformed
+
+    private void mConsultaPorPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mConsultaPorPrestamosActionPerformed
+       vistaConsultaLectoresYLibrosXPrestamo consultaLectorLibro = new vistaConsultaLectoresYLibrosXPrestamo();
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        consultaLectorLibro.setVisible(true);
+        escritorio.add(consultaLectorLibro);
+        escritorio.moveToFront(consultaLectorLibro);
+    }//GEN-LAST:event_mConsultaPorPrestamosActionPerformed
 
     /**
      * @param args the command line arguments
