@@ -23,7 +23,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
               <Component id="jpBody" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="128" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
@@ -104,31 +104,36 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jlbDesc2" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jlbEjemplar" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
-                              <Component id="jlbLector" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jlbDesc2" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jlbEjemplar" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
+                                      <Component id="jlbLector" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jcbEjemplar" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
+                                      <Component id="jcbLector" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="jlbDesc3" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jcbEjemplar" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
-                              <Component id="jcbLector" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="0" pref="38" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jlbInicioPrestamo" min="-2" pref="83" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jdcFechaInicio" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Component id="jdcFechaInicio" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jlbFinPrestamo" min="-2" pref="83" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jdcFechaFin" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Component id="jdcFechaFin" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jlbDesc3" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="38" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
@@ -156,10 +161,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jlbInicioPrestamo" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="jlbFinPrestamo" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jdcFechaInicio" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jdcFechaFin" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="jdcFechaInicio" min="-2" max="-2" attributes="0"/>
+                      <Component id="jdcFechaFin" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Component id="jlbDesc3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="129" max="-2" attributes="0"/>
@@ -270,10 +275,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="com.toedter.calendar.JDateChooser" name="jdcFechaInicio">
-        </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jdcFechaFin">
-        </Component>
         <Component class="javax.swing.JLabel" name="jlbDesc3">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -282,6 +283,10 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Abajo se muestran los prestamos vigentes del Lector"/>
           </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="jdcFechaInicio">
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="jdcFechaFin">
         </Component>
       </SubComponents>
     </Container>
@@ -300,18 +305,19 @@
                   <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                   <Component id="jbModificar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jdcNuevaFecha" min="-2" pref="36" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                  <Component id="jbSalir" min="-2" pref="80" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jdcNuevaFecha" min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace pref="91" max="32767" attributes="0"/>
+                  <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jdcNuevaFecha" min="-2" max="-2" attributes="0"/>
                       <Component id="jbSalir" min="-2" pref="35" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="jbModificar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
@@ -319,9 +325,8 @@
                           <Component id="jbPrestar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="jbNuevo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jdcNuevaFecha" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace pref="10" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
