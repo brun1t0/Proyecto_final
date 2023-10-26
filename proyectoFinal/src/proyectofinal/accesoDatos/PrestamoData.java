@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import org.mariadb.jdbc.export.Prepare;
 import proyectofinal.Entidades.*;
 
@@ -281,4 +282,33 @@ public List<Map<String, Object>> obtenerLectoresConPrestamosVencidos() {
         return null;
     }
 
+     public List<Prestamo> buscarTodosLosPrestamosPorEstado(boolean estado) {
+        List<Prestamo> listaPrestamo = new ArrayList<>();
+
+        String sql = "SELECT * FROM `prestamo` WHERE estado = " + estado;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rowsUpdate = ps.executeQuery();
+
+            EjemplarData ejData = new EjemplarData();
+            UsuarioData uData = new UsuarioData();
+
+            while (rowsUpdate.next()) {
+
+                Ejemplar ej = ejData.buscarEjemplarPorIdCodigo(rowsUpdate.getInt("idCodigo"), !estado);
+
+                Lector lec = uData.buscarLectorPorId(rowsUpdate.getInt(4));
+                Prestamo p = new Prestamo(rowsUpdate.getDate(1), rowsUpdate.getDate(2), ej, lec, rowsUpdate.getBoolean(3));
+                listaPrestamo.add(p);
+            }
+            ps.close();
+            return listaPrestamo;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
 }
