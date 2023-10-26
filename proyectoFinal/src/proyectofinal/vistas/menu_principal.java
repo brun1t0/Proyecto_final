@@ -153,11 +153,6 @@ public class menu_principal extends javax.swing.JFrame {
         jMenu3.add(mConsultaPorPrestamos);
 
         mLibrosPrestadosXFecha.setText("Consultar libros prestados por fecha");
-        mLibrosPrestadosXFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mLibrosPrestadosXFechaActionPerformed(evt);
-            }
-        });
         jMenu3.add(mLibrosPrestadosXFecha);
 
         jMenuBar1.add(jMenu3);
