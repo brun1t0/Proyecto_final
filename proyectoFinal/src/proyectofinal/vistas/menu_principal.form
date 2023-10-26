@@ -62,16 +62,25 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consultar cantidad de ejemplares de un libro"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mCantidadEjemplaresActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mPrestamosVencidos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consultar lectores con prestamos vencidos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mPrestamosVencidosActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mLibrosXAutor">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consultar libros de un autor espec&#xed;fico"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mLibrosXAutorActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mConsultaPorPrestamos">
               <Properties>
@@ -129,12 +138,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="783" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="800" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="604" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="577" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

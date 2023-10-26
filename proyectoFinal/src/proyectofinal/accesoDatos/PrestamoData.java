@@ -207,6 +207,75 @@ public class PrestamoData {
         return null;
 
     }
+public List<Map<String, Object>> obtenerLectoresConPrestamosVencidos() {
+    try {
+        List<Map<String, Object>> lectoresConPrestamosVencidos = new ArrayList<>();
+        String sql = "SELECT usuario.idSocio, usuario.nombre, usuario.domicilio, usuario.mail, prestamo.fechaFin "
+                + "FROM Prestamo "
+                + "JOIN usuario ON (Prestamo.idSocio = usuario.idSocio) "
+                + "WHERE Prestamo.estado = 1 AND Prestamo.fechaFin < CURDATE()";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("idSocio", rs.getInt("usuario.idSocio"));
+            data.put("nombre", rs.getString("usuario.nombre"));
+            data.put("domicilio", rs.getString("usuario.domicilio"));
+            data.put("mail", rs.getString("usuario.mail"));
+            data.put("fechaFin", rs.getDate("prestamo.fechaFin"));
+            
+            lectoresConPrestamosVencidos.add(data);
+        }
+
+        return lectoresConPrestamosVencidos;
+    } catch (SQLException ex) {
+        Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return null;
+}
+
+
+
+
+
+    
+    
+    public List<Map<String, Object>> obtenerLectoresConPrestamosProximosAVencer() {
+    try {
+        List<Map<String, Object>> lectoresConPrestamosProximosAVencer = new ArrayList<>();
+        String sql = "SELECT usuario.idSocio, usuario.nombre, usuario.domicilio, usuario.mail, usuario.estado, prestamo.fechaInicio, prestamo.fechaFin "
+                + "FROM Prestamo "
+                + "JOIN usuario ON (Prestamo.idSocio = usuario.idSocio) "
+                + "WHERE Prestamo.estado = 1 AND Prestamo.fechaFin >= CURDATE()";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("idSocio", rs.getInt("usuario.idSocio"));
+            data.put("nombre", rs.getString("usuario.nombre"));
+            data.put("domicilio", rs.getString("usuario.domicilio"));
+            data.put("mail", rs.getString("usuario.mail"));
+            data.put("estado", rs.getBoolean("usuario.estado"));
+            data.put("fechaInicio", rs.getDate("prestamo.fechaInicio"));
+            data.put("fechaFin", rs.getDate("prestamo.fechaFin"));
+
+            lectoresConPrestamosProximosAVencer.add(data);
+        }
+
+        return lectoresConPrestamosProximosAVencer;
+    } catch (SQLException ex) {
+        Logger.getLogger(PrestamoData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return null;
+}
+
+
+
+
 
     public Ejemplar obtenerLibrosPrestadosEnUnaFechaPredeterminada(LocalDate fecha) {
 

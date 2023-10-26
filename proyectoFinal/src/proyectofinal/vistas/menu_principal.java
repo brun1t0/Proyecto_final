@@ -4,6 +4,8 @@
  */
 package proyectofinal.vistas;
 
+import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -16,10 +18,27 @@ public class menu_principal extends javax.swing.JFrame {
      */
     public menu_principal() {
         initComponents();
-        this.setSize(1024 ,768);
+        this.setSize(800, 600);
         this.setLocationRelativeTo(null);
         this.setTitle("Sistema de Gestion de Biblioteca");
         this.setResizable(false);
+    }
+
+    private void inicializarJInternalFrame(JInternalFrame internalFrame, String Titulo) {
+        escritorio.removeAll();
+        escritorio.repaint();
+
+        internalFrame.setTitle(Titulo);
+        internalFrame.setSize(800, 620);
+        internalFrame.setVisible(true);
+        escritorio.add(internalFrame);
+        escritorio.moveToFront(internalFrame);
+
+        int x = (escritorio.getWidth() - internalFrame.getWidth()) / 2;
+        int y = (escritorio.getHeight() - internalFrame.getHeight()) / 2;
+        internalFrame.setLocation(x, y);
+
+        internalFrame.setResizable(false);
     }
 
     /**
@@ -52,11 +71,11 @@ public class menu_principal extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 783, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 604, Short.MAX_VALUE)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Administración");
@@ -107,12 +126,27 @@ public class menu_principal extends javax.swing.JFrame {
         jMenu3.setText("Consultas");
 
         mCantidadEjemplares.setText("Consultar cantidad de ejemplares de un libro");
+        mCantidadEjemplares.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mCantidadEjemplaresActionPerformed(evt);
+            }
+        });
         jMenu3.add(mCantidadEjemplares);
 
         mPrestamosVencidos.setText("Consultar lectores con prestamos vencidos");
+        mPrestamosVencidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mPrestamosVencidosActionPerformed(evt);
+            }
+        });
         jMenu3.add(mPrestamosVencidos);
 
         mLibrosXAutor.setText("Consultar libros de un autor específico");
+        mLibrosXAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mLibrosXAutorActionPerformed(evt);
+            }
+        });
         jMenu3.add(mLibrosXAutor);
 
         mConsultaPorPrestamos.setText("Consultar lectores y libros de todos los prestamos");
@@ -145,23 +179,49 @@ public class menu_principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       VistaEjemplar gp = new VistaEjemplar();
-        escritorio.removeAll();
-        escritorio.repaint();
-        
-        gp.setVisible(true);
-        escritorio.add(gp);
-        escritorio.moveToFront(gp);
+        VistaEjemplar gp = new VistaEjemplar();
+        inicializarJInternalFrame(gp, "Gestion de Ejemplares");
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void mGestorLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGestorLibrosActionPerformed
         gestorLibros gp = new gestorLibros();
+        inicializarJInternalFrame(gp, "Gestion de Libros");
+    }//GEN-LAST:event_mGestorLibrosActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        proyectoFinalVistaUsuario usuarioVista = new proyectoFinalVistaUsuario();
+        inicializarJInternalFrame(usuarioVista, "Gestion de Usuarios");
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void mGestorPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGestorPrestamosActionPerformed
+        vistaGestorDePrestamos vgp = new vistaGestorDePrestamos();
+        inicializarJInternalFrame(vgp, "Gestion de Prestamos");
+    }//GEN-LAST:event_mGestorPrestamosActionPerformed
+
+    private void mLibrosXAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mLibrosXAutorActionPerformed
+        VistaConsultarLibrosXAutor vla = new VistaConsultarLibrosXAutor();
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        vla.setVisible(true);
+        escritorio.add(vla);
+        escritorio.moveToFront(vla);
+    }//GEN-LAST:event_mLibrosXAutorActionPerformed
+
+    private void mCantidadEjemplaresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCantidadEjemplaresActionPerformed
+        v_ConsultarEjemplarLibro gp = new v_ConsultarEjemplarLibro();
         escritorio.removeAll();
         escritorio.repaint();
         
         gp.setVisible(true);
         escritorio.add(gp);
         escritorio.moveToFront(gp);
+
+
     }//GEN-LAST:event_mGestorLibrosActionPerformed
 
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
@@ -188,6 +248,14 @@ public class menu_principal extends javax.swing.JFrame {
         escritorio.moveToFront(vgp);
     }//GEN-LAST:event_mGestorPrestamosActionPerformed
 
+
+    }//GEN-LAST:event_mCantidadEjemplaresActionPerformed
+    private void mPrestamosVencidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPrestamosVencidosActionPerformed
+        vistaLectoresConPrestamosVencidos vlcpv = new vistaLectoresConPrestamosVencidos();
+        inicializarJInternalFrame(vlcpv, "Consulta de Prestamos");
+    }//GEN-LAST:event_mPrestamosVencidosActionPerformed
+
+
     private void mConsultaPorPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mConsultaPorPrestamosActionPerformed
        vistaConsultaLectoresYLibrosXPrestamo consultaLectorLibro = new vistaConsultaLectoresYLibrosXPrestamo();
         escritorio.removeAll();
@@ -208,20 +276,12 @@ public class menu_principal extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menu_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menu_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menu_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menu_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+//            UIManager.setLookAndFeel(new FlatLightLaf());
+            FlatGradiantoDeepOceanIJTheme.setup();
+
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
         }
         //</editor-fold>
 
