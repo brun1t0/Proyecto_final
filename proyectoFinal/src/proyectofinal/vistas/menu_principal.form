@@ -86,6 +86,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Consultar lectores y libros de todos los prestamos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mConsultaPorPrestamosActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mLibrosPrestadosXFecha">
               <Properties>

@@ -150,6 +150,11 @@ public class menu_principal extends javax.swing.JFrame {
         jMenu3.add(mLibrosXAutor);
 
         mConsultaPorPrestamos.setText("Consultar lectores y libros de todos los prestamos");
+        mConsultaPorPrestamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mConsultaPorPrestamosActionPerformed(evt);
+            }
+        });
         jMenu3.add(mConsultaPorPrestamos);
 
         mLibrosPrestadosXFecha.setText("Consultar libros prestados por fecha");
@@ -215,11 +220,51 @@ public class menu_principal extends javax.swing.JFrame {
         gp.setVisible(true);
         escritorio.add(gp);
         escritorio.moveToFront(gp);
+
+
+    }//GEN-LAST:event_mGestorLibrosActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+      
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        proyectoFinalVistaUsuario usuarioVista = new proyectoFinalVistaUsuario();
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        usuarioVista.setVisible(true);
+        escritorio.add(usuarioVista);
+        escritorio.moveToFront(usuarioVista);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void mGestorPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGestorPrestamosActionPerformed
+        vistaGestorDePrestamos vgp = new vistaGestorDePrestamos();
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        vgp.setVisible(true);
+        escritorio.add(vgp);
+        escritorio.moveToFront(vgp);
+    }//GEN-LAST:event_mGestorPrestamosActionPerformed
+
+
     }//GEN-LAST:event_mCantidadEjemplaresActionPerformed
     private void mPrestamosVencidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPrestamosVencidosActionPerformed
         vistaLectoresConPrestamosVencidos vlcpv = new vistaLectoresConPrestamosVencidos();
         inicializarJInternalFrame(vlcpv, "Consulta de Prestamos");
     }//GEN-LAST:event_mPrestamosVencidosActionPerformed
+
+
+    private void mConsultaPorPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mConsultaPorPrestamosActionPerformed
+       vistaConsultaLectoresYLibrosXPrestamo consultaLectorLibro = new vistaConsultaLectoresYLibrosXPrestamo();
+        escritorio.removeAll();
+        escritorio.repaint();
+        
+        consultaLectorLibro.setVisible(true);
+        escritorio.add(consultaLectorLibro);
+        escritorio.moveToFront(consultaLectorLibro);
+    }//GEN-LAST:event_mConsultaPorPrestamosActionPerformed
 
     /**
      * @param args the command line arguments
