@@ -296,7 +296,7 @@ public List<Map<String, Object>> obtenerLectoresConPrestamosVencidos() {
 
             while (rowsUpdate.next()) {
 
-                Ejemplar ej = ejData.buscarEjemplarPorIdCodigo(rowsUpdate.getInt("idCodigo"), false);
+                Ejemplar ej = ejData.buscarEjemplarPorIdCodigo(rowsUpdate.getInt("idCodigo"), !estado);
 
                 Lector lec = uData.buscarLectorPorId(rowsUpdate.getInt(4));
                 Prestamo p = new Prestamo(rowsUpdate.getDate(1), rowsUpdate.getDate(2), ej, lec, rowsUpdate.getBoolean(3));
