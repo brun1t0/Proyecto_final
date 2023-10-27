@@ -174,12 +174,12 @@ public class menu_principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        VistaEjemplar gp = new VistaEjemplar();
+        VistaGestorEjemplares gp = new VistaGestorEjemplares();
         inicializarJInternalFrame(gp, "Gestion de Ejemplares");
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void mGestorLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGestorLibrosActionPerformed
-        gestorLibros gp = new gestorLibros();
+        vistaGestorLibros gp = new vistaGestorLibros();
         inicializarJInternalFrame(gp, "Gestion de Libros");
     }//GEN-LAST:event_mGestorLibrosActionPerformed
                                            
@@ -190,14 +190,14 @@ public class menu_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mLibrosXAutorActionPerformed
 
     private void mCantidadEjemplaresActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        v_ConsultarEjemplarLibro gp = new v_ConsultarEjemplarLibro();
+        vistaConsultarEjemplarLibro gp = new vistaConsultarEjemplarLibro();
         inicializarJInternalFrame(gp, "Consultar cantidad de ejemplares de libros");
     }                                             
 
 
                                                        
     private void mPrestamosVencidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mPrestamosVencidosActionPerformed
-        vistaLectoresConPrestamosVencidos vlcpv = new vistaLectoresConPrestamosVencidos();
+        vistaConsultaLectoresConPrestamosVencidos vlcpv = new vistaConsultaLectoresConPrestamosVencidos();
         inicializarJInternalFrame(vlcpv, "Consulta de Prestamos");
     }//GEN-LAST:event_mPrestamosVencidosActionPerformed
 
@@ -214,7 +214,7 @@ public class menu_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_mGestorPrestamosActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-          proyectoFinalVistaUsuario usuarioVista = new proyectoFinalVistaUsuario();
+          vistaGestorUsuarios usuarioVista = new vistaGestorUsuarios();
         inicializarJInternalFrame(usuarioVista, "Gestion de Usuarios");
         System.out.println("este");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
