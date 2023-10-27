@@ -5,7 +5,6 @@
 package proyectofinal.vistas;
 
 import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JInternalFrame;
 import javax.swing.border.Border;
@@ -23,7 +22,7 @@ public class vistaPrincipal extends javax.swing.JFrame {
      */
     public vistaPrincipal() {
         initComponents();
-        this.setSize(1054, 683);
+        this.setSize(1025, 708);
         this.setLocationRelativeTo(null);
         this.setTitle("Sistema de Gestion de Biblioteca");
         this.setResizable(false);
@@ -37,21 +36,17 @@ public class vistaPrincipal extends javax.swing.JFrame {
     escritorio.setLayout(null);
     escritorio.setBorder(null);
     Border bordes = new MatteBorder(2, 2, 2, 2, Color.BLACK);
-    //escritorio.setBorder(bordes);
 
     BasicInternalFrameUI ui = (BasicInternalFrameUI) internalFrame.getUI();
     ui.setNorthPane(null);
     internalFrame.setBorder(bordes);
     
-    // Establece el tamaño del JInternalFrame
     internalFrame.setSize(820, 620);
     internalFrame.setVisible(true);
     
-    // Calcula las coordenadas para centrar el JInternalFrame
     int x = (escritorio.getWidth() - internalFrame.getWidth()) / 2;
     int y = (escritorio.getHeight() - internalFrame.getHeight()) / 2;
     
-    // Establece la posición manualmente
     internalFrame.setBounds(x, y, internalFrame.getWidth(), internalFrame.getHeight());
 
     escritorio.add(internalFrame);
@@ -491,22 +486,22 @@ public class vistaPrincipal extends javax.swing.JFrame {
                 .addGroup(jpFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(escritorio)
                     .addComponent(jpMenuSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         jpFondoLayout.setVerticalGroup(
             jpFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpFondoLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(jpFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpLateral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpFondoLayout.createSequentialGroup()
                         .addComponent(jpMenuSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
-        getContentPane().add(jpFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 700));
+        getContentPane().add(jpFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 710));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -517,17 +512,17 @@ public class vistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jlGestorPrestamosMouseClicked
 
     private void jlGestorEjemplaresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlGestorEjemplaresMouseClicked
-        VistaEjemplar gp = new VistaEjemplar();
+        VistaGestorEjemplares gp = new VistaGestorEjemplares();
         inicializarJInternalFrame(gp, "Gestion de Ejemplares");
     }//GEN-LAST:event_jlGestorEjemplaresMouseClicked
 
     private void jlGestorLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlGestorLibrosMouseClicked
-        gestorLibros gp = new gestorLibros();
+        vistaGestorLibros gp = new vistaGestorLibros();
         inicializarJInternalFrame(gp, "Gestion de Libros");
     }//GEN-LAST:event_jlGestorLibrosMouseClicked
 
     private void jlGestorUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlGestorUsuariosMouseClicked
-        proyectoFinalVistaUsuario usuarioVista = new proyectoFinalVistaUsuario();
+        vistaGestorUsuarios usuarioVista = new vistaGestorUsuarios();
         inicializarJInternalFrame(usuarioVista, "Gestion de Usuarios");
     }//GEN-LAST:event_jlGestorUsuariosMouseClicked
 
@@ -536,7 +531,8 @@ public class vistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jlConsultas9MouseClicked
 
     private void jlConsultas8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlConsultas8MouseClicked
-        // TODO add your handling code here:
+    vistaConsultaLectoresYLibrosXPrestamo usuarioVista = new vistaConsultaLectoresYLibrosXPrestamo();
+    inicializarJInternalFrame(usuarioVista, "Gestion de Usuarios");
     }//GEN-LAST:event_jlConsultas8MouseClicked
 
     private void jlConsultas7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlConsultas7MouseClicked
@@ -545,12 +541,12 @@ public class vistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jlConsultas7MouseClicked
 
     private void jlConsultas6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlConsultas6MouseClicked
-    vistaLectoresConPrestamosVencidos vlcpv = new vistaLectoresConPrestamosVencidos();
+    vistaConsultaLectoresConPrestamosVencidos vlcpv = new vistaConsultaLectoresConPrestamosVencidos();
         inicializarJInternalFrame(vlcpv, "Consulta de Prestamos");
     }//GEN-LAST:event_jlConsultas6MouseClicked
 
     private void jlConsultas1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlConsultas1MouseClicked
-        v_ConsultarEjemplarLibro gp = new v_ConsultarEjemplarLibro();
+        vistaConsultarEjemplarLibro gp = new vistaConsultarEjemplarLibro();
         inicializarJInternalFrame(gp, "Consulta cantidad de ejemplares por libro");
     }//GEN-LAST:event_jlConsultas1MouseClicked
 

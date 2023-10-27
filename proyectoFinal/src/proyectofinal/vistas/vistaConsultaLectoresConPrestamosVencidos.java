@@ -22,7 +22,7 @@ import proyectofinal.accesoDatos.UsuarioData;
  *
  * @author Lucas
  */
-public class vistaLectoresConPrestamosVencidos extends javax.swing.JInternalFrame {
+public class vistaConsultaLectoresConPrestamosVencidos extends javax.swing.JInternalFrame {
 
     private UsuarioData lData = new UsuarioData();
     private EjemplarData eData = new EjemplarData();
@@ -31,7 +31,7 @@ public class vistaLectoresConPrestamosVencidos extends javax.swing.JInternalFram
     DefaultTableModel modeloTabla = new DefaultTableModel();
     
     
-    public vistaLectoresConPrestamosVencidos() {
+    public vistaConsultaLectoresConPrestamosVencidos() {
         initComponents();
         armarCabecera();
         this.setSize(800, 600);
@@ -174,7 +174,7 @@ jrbPorVencer.addItemListener(new ItemListener() {
             .addGroup(jpHeadLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 786, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpHeadLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jlbDesc1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -235,7 +235,7 @@ jrbPorVencer.addItemListener(new ItemListener() {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("PRESTAMOS");
 
-        jtConsultas.setFont(new java.awt.Font("Candara", 0, 14)); // NOI18N
+        jtConsultas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jtConsultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -285,11 +285,11 @@ jrbPorVencer.addItemListener(new ItemListener() {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpHead, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jpFooter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
