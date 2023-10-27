@@ -394,6 +394,8 @@ public class VistaEjemplar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTFisbnActionPerformed
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
+        try{
+        
         int selectedRow = jtTablaEjemplares.getSelectedRow();
         if (selectedRow != -1) {
             int idCodigo = (int) jtTablaEjemplares.getValueAt(selectedRow, 0);
@@ -419,6 +421,10 @@ public class VistaEjemplar extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this,
                     "Seleccione una fila de la tabla para realizar la modificación.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        }catch(NumberFormatException nf){
+        JOptionPane.showMessageDialog(this, "El ISBN ingresado no es válido.");
         }
     }//GEN-LAST:event_jBModificarActionPerformed
 

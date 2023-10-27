@@ -121,17 +121,16 @@
                               </Group>
                               <Component id="jlbDesc3" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="38" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jlbInicioPrestamo" min="-2" pref="83" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jdcFechaInicio" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="jlbFinPrestamo" min="-2" pref="83" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jdcFechaFin" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -164,7 +163,7 @@
                       <Component id="jdcFechaInicio" min="-2" max="-2" attributes="0"/>
                       <Component id="jdcFechaFin" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jlbDesc3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="129" max="-2" attributes="0"/>
@@ -305,8 +304,8 @@
                   <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                   <Component id="jbModificar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jdcNuevaFecha" min="-2" pref="26" max="-2" attributes="0"/>
-                  <EmptySpace pref="91" max="32767" attributes="0"/>
+                  <Component id="jdcNuevaFecha" min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace pref="137" max="32767" attributes="0"/>
                   <Component id="jbSalir" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               </Group>
@@ -316,14 +315,16 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jdcNuevaFecha" min="-2" max="-2" attributes="0"/>
-                      <Component id="jbSalir" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="jbModificar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jbDevolver" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jbPrestar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jbNuevo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jbSalir" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="jbModificar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="jbDevolver" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="jbPrestar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="jbNuevo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace pref="10" max="32767" attributes="0"/>
