@@ -50,17 +50,16 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
         llenarCboLector();
         llenarCboEjemplar();
         armarCabecera();
-          jtConsultas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        jtConsultas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int selectedRow = jtConsultas.getSelectedRow();
                 jdcNuevaFecha.setEnabled(selectedRow >= 0);
 
                 // Deshabilita todos los botones excepto jbDevolver y jbModificar
-                
                 jbModificar.setEnabled(selectedRow >= 0); // Habilita jbModificar solo si se selecciona una fila
                 jbDevolver.setEnabled(selectedRow >= 0);  // Habilita jbModificar solo si se selecciona una fila
-                
+
             }
         });
 
@@ -80,11 +79,7 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
             }
         });
 
-        
-        
-        
     }
-        
 
 //Metodos 
     public void llenarCboLector() {
@@ -149,19 +144,24 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
 //Tabla
 
     private void armarCabecera() {
-        // Añade tus columnas a la tabla
         modeloTabla.addColumn("ID");
         modeloTabla.addColumn("Titulo");
         modeloTabla.addColumn("Fecha Inicio");
         modeloTabla.addColumn("Fecha Fin");
 
         jtConsultas.setModel(modeloTabla);
+
+        DefaultTableModel defaultModel = (DefaultTableModel) jtConsultas.getModel();
+        defaultModel.setRowCount(0);
+        jtConsultas.setModel(defaultModel);
+
         TableColumnModel columnModel = jtConsultas.getColumnModel();
-        
-        columnModel.getColumn(0).setPreferredWidth(50);  
-        columnModel.getColumn(1).setPreferredWidth(300); 
-        columnModel.getColumn(2).setPreferredWidth(100); 
-        columnModel.getColumn(3).setPreferredWidth(100); 
+        columnModel.getColumn(0).setPreferredWidth(50);
+        columnModel.getColumn(1).setPreferredWidth(300);
+        columnModel.getColumn(2).setPreferredWidth(100);
+        columnModel.getColumn(3).setPreferredWidth(100);
+
+        jtConsultas.setDefaultEditor(Object.class, null);
     }
 
     public void CargarPrestamos() {
@@ -175,8 +175,8 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
                 Date inicio = listaP.getFechaInicio();
                 Date fin = listaP.getFechaFin();
                 Boolean estado = listaP.isEstado();
-                
-                System.out.println("titulo "+listaP.getEjemplar().getLibro().getTitulo());
+
+                System.out.println("titulo " + listaP.getEjemplar().getLibro().getTitulo());
 
                 modeloTabla.addRow(new Object[]{id, tit, inicio, fin, estado});
 
@@ -538,7 +538,7 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
         if (filaSeleccionada != -1) {
             fechaInicio = (Date) jtConsultas.getValueAt(filaSeleccionada, 2);
             fechaFin = (Date) jtConsultas.getValueAt(filaSeleccionada, 3);
-            int id = Integer.parseInt( jtConsultas.getValueAt(filaSeleccionada, 0).toString());
+            int id = Integer.parseInt(jtConsultas.getValueAt(filaSeleccionada, 0).toString());
             ejemplar = eData.buscarEjemplarPorIdCodigo(id, false);
         }
 
@@ -564,7 +564,7 @@ public class vistaGestorDePrestamos extends javax.swing.JInternalFrame {
             Date nuevaFecha = jdcNuevaFecha.getDate();
             if (nuevaFecha != null) {
                 int filaSeleccionada = jtConsultas.getSelectedRow();
-                int id = Integer.parseInt( jtConsultas.getValueAt(filaSeleccionada, 0).toString());
+                int id = Integer.parseInt(jtConsultas.getValueAt(filaSeleccionada, 0).toString());
                 Ejemplar ejemplar = eData.buscarEjemplarPorIdCodigo(id, false);
                 Lector lector = (Lector) jcbLector.getSelectedItem();
                 int idSocio = lector.getNroSocio();

@@ -4,7 +4,10 @@ package proyectofinal.vistas;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import proyectofinal.Entidades.Ejemplar;
 import proyectofinal.accesoDatos.EjemplarData;
 
@@ -12,8 +15,28 @@ public class vistaConsultarEjemplarLibro extends javax.swing.JInternalFrame {
     private EjemplarData ed = new EjemplarData();
     public vistaConsultarEjemplarLibro() {
         initComponents();
+        setearTabla();
+    }
+    
+    public void setearTabla() {
+    DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+    tcr.setHorizontalAlignment(SwingConstants.LEADING);
+
+    int numColumnas = jtTablaConsulta.getColumnCount(); // Obtener el número total de columnas
+
+    for (int i = 0; i < numColumnas; i++) {
+        jtTablaConsulta.getColumnModel().getColumn(i).setCellRenderer(tcr);
     }
 
+        TableColumnModel columnModel = jtTablaConsulta.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(100);
+        columnModel.getColumn(1).setPreferredWidth(100);
+        columnModel.getColumn(2).setPreferredWidth(220);
+        columnModel.getColumn(3).setPreferredWidth(35);
+        columnModel.getColumn(4).setPreferredWidth(100);
+        columnModel.getColumn(5).setPreferredWidth(100);
+        columnModel.getColumn(6).setPreferredWidth(100);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -234,7 +257,7 @@ public class vistaConsultarEjemplarLibro extends javax.swing.JInternalFrame {
             resultado.get(0).getLibro().getAnio(),
             resultado.get(0).getLibro().getTipo(),
             resultado.get(0).getLibro().getEditorial(),
-            totalEjemplares
+            totalEjemplares+" Unidades"
         });
     } else {
         JOptionPane.showMessageDialog(null, "No se encontraron resultados.", "Información", JOptionPane.INFORMATION_MESSAGE);

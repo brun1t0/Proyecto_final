@@ -1,14 +1,12 @@
 package proyectofinal.vistas;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import proyectofinal.Entidades.Ejemplar;
-import proyectofinal.Entidades.Libro;
 import proyectofinal.accesoDatos.EjemplarData;
 
 public class VistaGestorEjemplares extends javax.swing.JInternalFrame {
@@ -18,8 +16,29 @@ public class VistaGestorEjemplares extends javax.swing.JInternalFrame {
 
     public VistaGestorEjemplares() {
         initComponents();
+        setearTabla();
+    }
+    
+    public void setearTabla() {
+        DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+        tcr.setHorizontalAlignment(SwingConstants.LEADING);
+
+        for (int i = 0; i < jtTablaEjemplares.getColumnCount(); i++) {
+            jtTablaEjemplares.getColumnModel().getColumn(i).setCellRenderer(tcr);
+        }
+
+        TableColumnModel columnModel = jtTablaEjemplares.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(20);
+        columnModel.getColumn(1).setPreferredWidth(100);
+        columnModel.getColumn(2).setPreferredWidth(175);
+        columnModel.getColumn(3).setPreferredWidth(220);
+        columnModel.getColumn(4).setPreferredWidth(35);
+        columnModel.getColumn(5).setPreferredWidth(100);
+        columnModel.getColumn(6).setPreferredWidth(150);
+        columnModel.getColumn(7).setPreferredWidth(50);
     }
 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -182,14 +201,14 @@ public class VistaGestorEjemplares extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "IdCodigo", "ISBN", "Autor", "Título", "Año", "Tipo", "Editorial", "Estado"
+                "ID", "ISBN", "Autor", "Título", "Año", "Tipo", "Editorial", "Estado"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -200,6 +219,7 @@ public class VistaGestorEjemplares extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtTablaEjemplares.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jtTablaEjemplares);
 
         jLabel3.setFont(new java.awt.Font("Modern No. 20", 1, 24)); // NOI18N
