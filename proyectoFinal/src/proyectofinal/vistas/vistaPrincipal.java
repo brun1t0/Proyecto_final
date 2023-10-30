@@ -7,6 +7,7 @@ package proyectofinal.vistas;
 import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
 import java.awt.Color;
 import javax.swing.JInternalFrame;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -21,6 +22,11 @@ public class vistaPrincipal extends javax.swing.JFrame {
      * Creates new form menu_principal
      */
     public vistaPrincipal() {
+        try {
+            UIManager.setLookAndFeel(new FlatGradiantoDeepOceanIJTheme());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize FlatLaf");
+        }
         initComponents();
         this.setSize(1025, 708);
         this.setLocationRelativeTo(null);
