@@ -7,6 +7,7 @@ package proyectofinal.vistas;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import proyectofinal.Entidades.Lector;
 import proyectofinal.accesoDatos.UsuarioData;
@@ -303,7 +304,10 @@ public class vistaGestorUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-        this.dispose();
+        JDesktopPane desktopPane = getDesktopPane();
+        if (desktopPane != null) {
+            desktopPane.getDesktopManager().closeFrame(this);
+        }
     }//GEN-LAST:event_jBSalirActionPerformed
 
 

@@ -6,6 +6,7 @@ package proyectofinal.vistas;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import proyectofinal.Entidades.Libro;
@@ -199,7 +200,10 @@ LibroData ld = new LibroData();
     }//GEN-LAST:event_bNuevoActionPerformed
 
     private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
-       this.dispose(); 
+        JDesktopPane desktopPane = getDesktopPane();
+        if (desktopPane != null) {
+            desktopPane.getDesktopManager().closeFrame(this);
+        }
     }//GEN-LAST:event_bSalirActionPerformed
 
 

@@ -4,6 +4,7 @@
  */
 package proyectofinal.vistas;
 
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import proyectofinal.Entidades.Libro;
 import proyectofinal.accesoDatos.LibroData;
@@ -415,7 +416,10 @@ private LibroData ld = new LibroData();
     }//GEN-LAST:event_bNuevoActionPerformed
 
     private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
-        this.dispose();
+        JDesktopPane desktopPane = getDesktopPane();
+        if (desktopPane != null) {
+            desktopPane.getDesktopManager().closeFrame(this);
+        }
     }//GEN-LAST:event_bSalirActionPerformed
 
 

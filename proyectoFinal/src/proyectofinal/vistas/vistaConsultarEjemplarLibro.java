@@ -3,6 +3,7 @@ package proyectofinal.vistas;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -265,11 +266,17 @@ public class vistaConsultarEjemplarLibro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBuscarActionPerformed
 
     private void jBsalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBsalirMouseClicked
-        System.exit(0);
+        JDesktopPane desktopPane = getDesktopPane();
+        if (desktopPane != null) {
+            desktopPane.getDesktopManager().closeFrame(this);
+        }
     }//GEN-LAST:event_jBsalirMouseClicked
 
     private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
-        this.dispose();
+        JDesktopPane desktopPane = getDesktopPane();
+        if (desktopPane != null) {
+            desktopPane.getDesktopManager().closeFrame(this);
+        }
     }//GEN-LAST:event_jBsalirActionPerformed
 
 

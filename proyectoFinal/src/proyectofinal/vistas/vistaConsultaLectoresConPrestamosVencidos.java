@@ -10,6 +10,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JDesktopPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import proyectofinal.Entidades.Lector;
@@ -294,7 +295,10 @@ jrbPorVencer.addItemListener(new ItemListener() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        dispose();
+    JDesktopPane desktopPane = getDesktopPane();
+    if (desktopPane != null) {
+        desktopPane.getDesktopManager().closeFrame(this);
+    }
     }//GEN-LAST:event_jbSalirActionPerformed
 
 

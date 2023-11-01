@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package proyectofinal.vistas;
+import javax.swing.JDesktopPane;
 import javax.swing.table.DefaultTableModel;
 import proyectofinal.Entidades.Prestamo;
 import proyectofinal.accesoDatos.LibroData;
@@ -175,7 +176,10 @@ public class vistaConsultaLectoresYLibrosXPrestamo extends javax.swing.JInternal
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-        this.dispose();
+        JDesktopPane desktopPane = getDesktopPane();
+        if (desktopPane != null) {
+            desktopPane.getDesktopManager().closeFrame(this);
+        }
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jTBEstadoPresionadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBEstadoPresionadoActionPerformed
