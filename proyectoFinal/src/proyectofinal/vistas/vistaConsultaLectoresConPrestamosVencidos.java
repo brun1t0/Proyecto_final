@@ -150,7 +150,6 @@ jrbPorVencer.addItemListener(new ItemListener() {
         jlbTitulo = new javax.swing.JLabel();
         jlbDesc1 = new javax.swing.JLabel();
         jpFooter = new javax.swing.JPanel();
-        jbNuevo = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jpBody = new javax.swing.JPanel();
         jrbVencidos = new javax.swing.JRadioButton();
@@ -190,13 +189,6 @@ jrbPorVencer.addItemListener(new ItemListener() {
                 .addContainerGap())
         );
 
-        jbNuevo.setText("Nuevo");
-        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbNuevoActionPerformed(evt);
-            }
-        });
-
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,9 +201,7 @@ jrbPorVencer.addItemListener(new ItemListener() {
         jpFooterLayout.setHorizontalGroup(
             jpFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpFooterLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(500, 500, 500)
+                .addGap(586, 586, 586)
                 .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -219,9 +209,7 @@ jrbPorVencer.addItemListener(new ItemListener() {
             jpFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpFooterLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -305,10 +293,6 @@ jrbPorVencer.addItemListener(new ItemListener() {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-        
-    }//GEN-LAST:event_jbNuevoActionPerformed
-
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
@@ -317,7 +301,6 @@ jrbPorVencer.addItemListener(new ItemListener() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
     private javax.swing.JLabel jlbDesc1;
     private javax.swing.JLabel jlbTitulo;
