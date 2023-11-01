@@ -82,8 +82,6 @@ public class vistaPrincipal extends javax.swing.JFrame {
         jlConsultas7 = new javax.swing.JLabel();
         jpMenuItemS4 = new javax.swing.JPanel();
         jlConsultas8 = new javax.swing.JLabel();
-        jpMenuItemS5 = new javax.swing.JPanel();
-        jlConsultas9 = new javax.swing.JLabel();
         escritorio = new javax.swing.JDesktopPane();
         jpLateral = new javax.swing.JPanel();
         jpLogo1 = new javax.swing.JPanel();
@@ -213,32 +211,6 @@ public class vistaPrincipal extends javax.swing.JFrame {
             .addComponent(jlConsultas8, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        jpMenuItemS5.setBackground(new java.awt.Color(79, 125, 173));
-        jpMenuItemS5.setPreferredSize(new java.awt.Dimension(188, 55));
-
-        jlConsultas9.setFont(new java.awt.Font("Corbel", 1, 14)); // NOI18N
-        jlConsultas9.setForeground(new java.awt.Color(193, 193, 193));
-        jlConsultas9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/Recursos/img/cPrestadosxFecha.png"))); // NOI18N
-        jlConsultas9.setText("<html>Libros prestados por fecha</html>");
-        jlConsultas9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jlConsultas9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jlConsultas9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jlConsultas9MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jpMenuItemS5Layout = new javax.swing.GroupLayout(jpMenuItemS5);
-        jpMenuItemS5.setLayout(jpMenuItemS5Layout);
-        jpMenuItemS5Layout.setHorizontalGroup(
-            jpMenuItemS5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlConsultas9, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-        );
-        jpMenuItemS5Layout.setVerticalGroup(
-            jpMenuItemS5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlConsultas9, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout jpMenuSuperiorLayout = new javax.swing.GroupLayout(jpMenuSuperior);
         jpMenuSuperior.setLayout(jpMenuSuperiorLayout);
         jpMenuSuperiorLayout.setHorizontalGroup(
@@ -246,15 +218,13 @@ public class vistaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMenuSuperiorLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(jpMenuItemS1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(58, 58, 58)
                 .addComponent(jpMenuItemS2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jpMenuItemS3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jpMenuItemS4, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jpMenuItemS5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(jpMenuItemS3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(jpMenuItemS4, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jpMenuSuperiorLayout.setVerticalGroup(
             jpMenuSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,8 +234,7 @@ public class vistaPrincipal extends javax.swing.JFrame {
                     .addComponent(jpMenuItemS1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jpMenuItemS2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jpMenuItemS3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpMenuItemS4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpMenuItemS5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jpMenuItemS4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -532,10 +501,6 @@ public class vistaPrincipal extends javax.swing.JFrame {
         inicializarJInternalFrame(usuarioVista, "Gestion de Usuarios");
     }//GEN-LAST:event_jlGestorUsuariosMouseClicked
 
-    private void jlConsultas9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlConsultas9MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jlConsultas9MouseClicked
-
     private void jlConsultas8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlConsultas8MouseClicked
     vistaConsultaLectoresYLibrosXPrestamo usuarioVista = new vistaConsultaLectoresYLibrosXPrestamo();
     inicializarJInternalFrame(usuarioVista, "Gestion de Usuarios");
@@ -589,7 +554,6 @@ public class vistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jlConsultas6;
     private javax.swing.JLabel jlConsultas7;
     private javax.swing.JLabel jlConsultas8;
-    private javax.swing.JLabel jlConsultas9;
     private javax.swing.JLabel jlGestorEjemplares;
     private javax.swing.JLabel jlGestorLibros;
     private javax.swing.JLabel jlGestorPrestamos;
@@ -607,7 +571,6 @@ public class vistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jpMenuItemS2;
     private javax.swing.JPanel jpMenuItemS3;
     private javax.swing.JPanel jpMenuItemS4;
-    private javax.swing.JPanel jpMenuItemS5;
     private javax.swing.JPanel jpMenuLateral;
     private javax.swing.JPanel jpMenuSuperior;
     // End of variables declaration//GEN-END:variables
