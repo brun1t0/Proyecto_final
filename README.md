@@ -27,3 +27,13 @@ Algunos objetivos específicos incluyen:
 El proyecto se ha desarrollado durante un período de 2 meses y abarca
 todas las fases, desde la planificación inicial hasta la implementación y el mantenimiento
 continuo de la plataforma.
+
+## Tecnologías, herramientas o métodos utilizados🛠️
+El proyecto se ha desarrollado utilizando tecnologías modernas y bases de datos para garantizar la eficiencia y la escalabilidad.
+- Java (para las clases, métodos y enlace con la base de datos).
+- Java Swing (para visualizar todos los datos en diversas pestañas).
+- MySQL (para tener una base de datos óptima para nuestra aplicación).
+
+## Equipo de trabajo o colaboradores clave🫱🏽‍🫲🏼
+El éxito de este proyecto ha sido posible gracias al arduo trabajo y la dedicación de un equipo talentoso de desarrolladores,
+diseñadores, y expertos en gestión de datos.
